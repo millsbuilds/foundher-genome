@@ -104,7 +104,7 @@ export default function App() {
                 <p className="text-[#C1603A] text-sm font-['DM_Sans']">Something went wrong. Please try again.</p>
               )}
               <p className="font-['DM_Sans'] italic text-[#3B2A22] text-sm mt-2">
-                Founding members get first access to their project's Genome type — free.
+                Sign up and we'll send you your personal link to the FoundHer Genome test the moment it launches.
               </p>
             </form>
           )}
