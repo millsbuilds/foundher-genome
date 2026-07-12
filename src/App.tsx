@@ -54,7 +54,7 @@ export default function App() {
             Most founders build by guessing. FoundHer Genome changes that.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed">
-            Answer just 18 multiple choice questions about how you build, how you think, and how your project is wired — and the Genome test will reveal your unique Genome type. A coded, multi-dimensional profile that tells you exactly how your venture is built to grow, and exactly which AI tools will help you scale — without guesswork, without wasted time, without errors in judgment.
+            Answer just 18 multiple choice questions about how you build, how you think, and how your project is wired — and the Genome test will reveal your unique Genome type. This is a coded, multi-dimensional profile that tells you exactly how your venture is built to grow, and exactly which AI tools will help you scale — without guesswork, without wasted time, without errors in judgment.
           </p>
         </div>
       </section>
