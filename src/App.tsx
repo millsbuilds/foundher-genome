@@ -30,7 +30,7 @@ export default function App() {
       </div>
 
       {/* ─── HERO ─── */}
-      <section className="relative w-full min-h-[90vh] flex items-center justify-center">
+      <section className="relative w-full min-h-[90vh] flex items-end justify-center pb-16">
         <img
           src="/images/FH_hero-image-final.png"
           alt="FoundHer Genome"
