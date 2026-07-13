@@ -104,7 +104,7 @@ export default function App() {
                 disabled={status === "loading"}
                 className="w-full py-3 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none disabled:opacity-60"
               >
-                {status === "loading" ? "Submitting..." : "Join the Waitlist"}
+                {status === "loading" ? "Submitting..." : "Take the Test"}
               </button>
               {status === "error" && (
                 <p className="text-[#C1603A] text-sm font-['DM_Sans']">Something went wrong. Please try again.</p>
