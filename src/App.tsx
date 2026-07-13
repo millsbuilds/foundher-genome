@@ -38,6 +38,9 @@ export default function App() {
         />
         <div className="absolute inset-0 bg-[#3B2A22]/40" />
         <div className="relative z-10 text-center px-6 max-w-3xl">
+          <p className="font-['DM_Sans'] font-medium text-[#C1603A] text-sm sm:text-base tracking-wide mb-4">
+            For women founders building in the AI era.
+          </p>
           <h1 className="font-['Libre_Baskerville'] font-bold text-[#FAF7F2] text-4xl sm:text-5xl md:text-6xl leading-[1.1] mb-6">
             Finally. A tool that gives you your competitive edge.
           </h1>
