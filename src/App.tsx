@@ -65,7 +65,7 @@ export default function App() {
       {/* ─── PULL QUOTE ─── */}
       <section className="py-16 px-6">
         <p className="font-['Libre_Baskerville'] italic text-[#C1603A] text-2xl sm:text-3xl md:text-4xl leading-snug text-center max-w-[680px] mx-auto">
-          "Think Myers-Briggs — but built exclusively for women founders and the AI era."
+          "Think Myers-Briggs — but built exclusively for women founders, the businesses they start and run in the AI era."
         </p>
       </section>
 
