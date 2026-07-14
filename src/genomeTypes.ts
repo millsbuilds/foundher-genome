@@ -64,7 +64,7 @@ interface AnchorType {
 
 const anchorTypes: Record<string, AnchorType> = {
   EIDCN: {
-    name: "Deepscale",
+    name: "The Visionary",
     description:
       "You are the founder who sees everything and builds accordingly. Your vision is wide, your instincts are sharp, and you move before the market knows what hit it. You go deep where others skim the surface, and you build infrastructure that scales without you. Technology isn\u2019t a tool you use \u2014 it\u2019s the air you breathe. You are wired to build something massive, something lasting, something that changes the rules. The risk isn\u2019t that you won\u2019t build it. The risk is that you\u2019ll build so fast and so wide that you outrun your own foundation. But when a Deepscale founder gets her systems right, she doesn\u2019t just win her market \u2014 she redefines it.",
     advantages: [
@@ -83,7 +83,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
   },
   PSXRA: {
-    name: "Shiftwork",
+    name: "The Strategist",
     description:
       "You are the founder who builds with precision, patience, and a blueprint that would make an engineer jealous. Where others rush in, you plan. Where others guess, you measure. You see the cracks in existing models and you know exactly how to exploit them \u2014 not by blowing things up, but by building something so structurally sound that the old way simply becomes irrelevant. Your relationships are your distribution channel. People trust you because you deliver exactly what you said you would, every single time. Technology serves you on your terms. You are not here to chase trends \u2014 you are here to build something that stands.",
     advantages: [
@@ -102,7 +102,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
   },
   PIDCN: {
-    name: "Exactcore",
+    name: "The Specialist",
     description:
       "You are the founder who combines laser focus with raw instinct \u2014 and it works. Your vision is precise, your moves are intuitive, and your market strategy is to go deeper than anyone thought possible. You scale through systems and technology, building infrastructure that holds your depth in place while you keep pushing further. You don\u2019t need to see every possibility. You need to see the right one \u2014 and you always do. Where other founders spread thin chasing breadth, you drill down until you own the space entirely. Your competitors don\u2019t lose to you on speed. They lose to you because by the time they arrive, you\u2019ve already built something they can\u2019t replicate.",
     advantages: [
@@ -121,7 +121,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
   },
   ESDCN: {
-    name: "Coreframe",
+    name: "The Architect",
     description:
       "You are the founder who builds empires on blueprints. Your vision is expansive, your process is systematic, and your market instinct is to go deep where others go wide. You scale through infrastructure and technology because you understand that lasting growth isn\u2019t built on hustle \u2014 it\u2019s built on systems. You see the full landscape, but you don\u2019t scatter. You map it, you plan it, and you execute it with the kind of operational discipline that turns ambitious visions into inevitable outcomes. You are the founder who makes the complex look simple, because behind every move is a framework you\u2019ve already stress-tested.",
     advantages: [
@@ -140,7 +140,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
   },
   EIXCN: {
-    name: "Breakscale",
+    name: "The Disruptor",
     description:
       "You are the founder who moves at a speed that terrifies your competition. Your vision is massive, your instincts are razor-sharp, and you don\u2019t wait for permission or a plan \u2014 you build. You see broken markets and you don\u2019t just want to fix them, you want to replace them entirely. You scale through systems, technology, and infrastructure because you know that the only way to capture a market at speed is to remove yourself from the bottleneck. You are a force. The question has never been whether you can build it. The question is whether you can stay disciplined enough to let the foundation catch up to the vision.",
     advantages: [
@@ -159,7 +159,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
   },
   EIDRN: {
-    name: "Deeproot",
+    name: "The Connector",
     description:
       "You are the founder who leads with vision and heart. You see the big picture, you trust your gut, and you grow by bringing people with you. Your market instinct is to go deep \u2014 to find the underserved, the overlooked, the people who have been waiting for someone to finally build something that actually works for them. Your relationships are your superpower. People don\u2019t just buy from you, they believe in you. Technology is your amplifier, and you wield it fluently. You are building a movement as much as a business, and that is exactly what makes you dangerous to every competitor who thinks growth only comes from ad spend and automation.",
     advantages: [
@@ -178,7 +178,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
   },
   EIDCA: {
-    name: "Groundshift",
+    name: "The Builder",
     description:
       "You are the founder who sees everything, moves on instinct, goes deeper than anyone, and builds to scale \u2014 all while keeping technology in its place. You don\u2019t chase tools. You adopt them when they\u2019ve earned it. Your vision is expansive, your execution is intuitive, and your market strategy is to find the layer nobody else has reached and build infrastructure to own it. Technology serves your business, not the other way around. You are the founder who proves that you don\u2019t need to be tech-obsessed to build something massive \u2014 you just need to be right about what matters. And you usually are.",
     advantages: [
@@ -197,7 +197,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
   },
   PSXRN: {
-    name: "Shiftmark",
+    name: "The Innovator",
     description:
       "You are the founder who disrupts with discipline. Your vision is precise, your process is systematic, and your market instinct is to break what\u2019s broken \u2014 but on your terms, on your timeline, with a plan. You grow through relationships because you know that the most powerful disruptions aren\u2019t just about better products \u2014 they\u2019re about better trust. Technology is your native language, and you use it to build movements that feel personal even as they scale. You are the founder who makes disruption look inevitable, because by the time the market sees you coming, you\u2019ve already built the infrastructure to stay.",
     advantages: [
