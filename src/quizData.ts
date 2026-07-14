@@ -33,26 +33,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 1,
     type: "scenario",
     axis: "vision",
-    prompt: "A year from now, how is this business naturally wired to grow?",
+    prompt: "When you imagine your business one year from now, what comes naturally?",
     options: [
       {
         label: "A",
-        text: "It keeps expanding \u2014 new directions, new markets, new possibilities opening up as it builds.",
+        text: "I see multiple directions already opening up \u2014 the vision keeps expanding the more I build.",
         scores: [{ pole: "E", axis: "vision", points: 3 }],
       },
       {
         label: "B",
-        text: "It\u2019s comfortable in a crowded space \u2014 it knows how it fits and grows confidently within it.",
+        text: "I see myself in a crowded field and I\u2019m not worried \u2014 there\u2019s room for all of us and I know how I fit.",
         scores: [{ pole: "E", axis: "vision", points: 1 }],
       },
       {
         label: "C",
-        text: "It\u2019s focused on one strong position and deepening it \u2014 clarity is its edge.",
+        text: "I see one strong, focused position \u2014 I know exactly what I\u2019m building and where it\u2019s headed.",
         scores: [{ pole: "P", axis: "vision", points: 1 }],
       },
       {
         label: "D",
-        text: "It does one thing better than anyone else in this space. Precision is its DNA.",
+        text: "I see one thing, done better than anyone else in this space. Precision is my edge.",
         scores: [{ pole: "P", axis: "vision", points: 3 }],
       },
     ],
@@ -61,26 +61,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 2,
     type: "scenario",
     axis: "vision",
-    prompt: "A new market opportunity appears adjacent to where this business operates. How does it respond?",
+    prompt: "A new market opportunity appears adjacent to your current focus. Your instinct is:",
     options: [
       {
         label: "A",
-        text: "It\u2019s already moving toward it. This business is wired to expand into adjacent territory.",
+        text: "I\u2019m already thinking about how to build it in parallel. More territory, more opportunity.",
         scores: [{ pole: "E", axis: "vision", points: 3 }],
       },
       {
         label: "B",
-        text: "It pauses to understand how the opportunity connects to where it\u2019s already headed before deciding.",
+        text: "Interesting \u2014 let me understand how it connects to where I\u2019m already headed before I decide.",
         scores: [{ pole: "E", axis: "vision", points: 1 }],
       },
       {
         label: "C",
-        text: "It files it away. This business doesn\u2019t dilute its focus until it owns what\u2019s in front of it.",
+        text: "I\u2019ll file it away. When I\u2019ve fully captured what\u2019s in front of me, maybe.",
         scores: [{ pole: "P", axis: "vision", points: 1 }],
       },
       {
         label: "D",
-        text: "Hard pass. This business doesn\u2019t move until its current position is dominant.",
+        text: "Hard pass. I don\u2019t move until my current focus is dominant.",
         scores: [{ pole: "P", axis: "vision", points: 3 }],
       },
     ],
@@ -89,7 +89,7 @@ export const quizQuestions: QuizQuestion[] = [
     id: 3,
     type: "image_pick",
     axis: "vision",
-    prompt: "Pick the image that feels most like how this business sees opportunity.",
+    prompt: "Pick the image that feels like how you think.",
     options: [
       {
         label: "A",
@@ -119,26 +119,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 4,
     type: "scenario",
     axis: "build",
-    prompt: "When this business starts something new, how does it move?",
+    prompt: "When you start something new in your business, what feels most natural?",
     options: [
       {
         label: "A",
-        text: "It dives in and figures it out in motion. This business builds best by doing.",
+        text: "I dive in and figure it out as I go. My best work happens in motion.",
         scores: [{ pole: "I", axis: "build", points: 3 }],
       },
       {
         label: "B",
-        text: "It moves with a general sense of direction, adjusting as it learns.",
+        text: "I have a general sense of direction and start moving, but I\u2019m comfortable adjusting as I learn.",
         scores: [{ pole: "I", axis: "build", points: 1 }],
       },
       {
         label: "C",
-        text: "It needs a rough framework before it executes \u2014 not perfect, but a map.",
+        text: "I like to have a rough framework before I start \u2014 it doesn\u2019t have to be perfect but I need a map.",
         scores: [{ pole: "S", axis: "build", points: 1 }],
       },
       {
         label: "D",
-        text: "It builds the system first. This business doesn\u2019t execute without structure.",
+        text: "I build a system first. Execution without structure wastes time and money.",
         scores: [{ pole: "S", axis: "build", points: 3 }],
       },
     ],
@@ -147,26 +147,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 5,
     type: "scenario",
     axis: "build",
-    prompt: "This business hits an unexpected obstacle. What happens next?",
+    prompt: "Your business hits an unexpected obstacle. What\u2019s your first move?",
     options: [
       {
         label: "A",
-        text: "It pivots immediately on instinct. The new direction reveals itself in motion.",
+        text: "I trust my gut and pivot immediately. I\u2019ll figure out the details as the new direction reveals itself.",
         scores: [{ pole: "I", axis: "build", points: 3 }],
       },
       {
         label: "B",
-        text: "It pauses, then moves on instinct \u2014 staying open to what the data shows afterward.",
+        text: "I pause, take a beat, then move on instinct \u2014 but I stay open to what the data tells me after.",
         scores: [{ pole: "I", axis: "build", points: 1 }],
       },
       {
         label: "C",
-        text: "It reads the numbers, builds a revised plan, then moves.",
+        text: "I look at what the numbers are telling me and build a revised plan before I move.",
         scores: [{ pole: "S", axis: "build", points: 1 }],
       },
       {
         label: "D",
-        text: "It stops, diagnoses the failure, fixes the process, then moves forward.",
+        text: "I stop everything, diagnose the system failure, fix the process, then move forward.",
         scores: [{ pole: "S", axis: "build", points: 3 }],
       },
     ],
@@ -175,7 +175,7 @@ export const quizQuestions: QuizQuestion[] = [
     id: 6,
     type: "image_pick",
     axis: "build",
-    prompt: "Pick the image that feels most like how this business operates.",
+    prompt: "Pick the image that feels most like how you work.",
     options: [
       {
         label: "A",
@@ -205,26 +205,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 7,
     type: "scenario",
     axis: "market",
-    prompt: "This business is entering a market with established players. How does it compete?",
+    prompt: "You\u2019re entering a market that already has established players. Your instinct is:",
     options: [
       {
         label: "A",
-        text: "It goes deeper than anyone else has gone. There\u2019s always an underserved layer nobody has reached yet.",
+        text: "I\u2019ll go deeper than anyone else has gone. There\u2019s always an underserved layer nobody has reached yet.",
         scores: [{ pole: "D", axis: "market", points: 3 }],
       },
       {
         label: "B",
-        text: "It finds the gap the others are missing and carves out its own corner quietly.",
+        text: "I see the gap they\u2019re all missing. I\u2019ll carve out my own corner and own it quietly.",
         scores: [{ pole: "D", axis: "market", points: 1 }],
       },
       {
         label: "C",
-        text: "It takes what exists and turns it sideways \u2014 same market, completely different approach.",
+        text: "I\u2019ll take what exists and turn it sideways \u2014 same market, completely different approach.",
         scores: [{ pole: "X", axis: "market", points: 1 }],
       },
       {
         label: "D",
-        text: "The existing model is broken. This business isn\u2019t competing with it \u2014 it\u2019s replacing it.",
+        text: "The existing model is broken. I\u2019m not competing with it, I\u2019m replacing it.",
         scores: [{ pole: "X", axis: "market", points: 3 }],
       },
     ],
@@ -233,26 +233,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 8,
     type: "scenario",
     axis: "market",
-    prompt: "When you look at the industry this business operates in, what does it see?",
+    prompt: "When you look at your industry, what excites you most?",
     options: [
       {
         label: "A",
-        text: "Depth that hasn\u2019t been explored \u2014 customers nobody is truly serving, problems nobody has fully solved.",
+        text: "The depth that hasn\u2019t been explored yet \u2014 the customers nobody is truly serving, the problem nobody has fully solved.",
         scores: [{ pole: "D", axis: "market", points: 3 }],
       },
       {
         label: "B",
-        text: "Underserved pockets \u2014 exactly where the current players are leaving people behind.",
+        text: "The underserved pockets \u2014 I can see exactly where the current players are leaving people behind.",
         scores: [{ pole: "D", axis: "market", points: 1 }],
       },
       {
         label: "C",
-        text: "Cracks in the existing model \u2014 where it\u2019s starting to break and an opening is forming.",
+        text: "The cracks in the existing model \u2014 I can see where it\u2019s starting to break and I want to be there when it does.",
         scores: [{ pole: "X", axis: "market", points: 1 }],
       },
       {
         label: "D",
-        text: "An opportunity to make the whole thing obsolete. This business isn\u2019t here to improve what exists \u2014 it\u2019s here to replace it.",
+        text: "The opportunity to make the whole thing obsolete \u2014 I\u2019m not here to improve what exists, I\u2019m here to replace it.",
         scores: [{ pole: "X", axis: "market", points: 3 }],
       },
     ],
@@ -261,7 +261,7 @@ export const quizQuestions: QuizQuestion[] = [
     id: 9,
     type: "image_pick",
     axis: "market",
-    prompt: "Pick the image that feels most like how this business sees its market.",
+    prompt: "Pick the image that feels most like how you see your market.",
     options: [
       {
         label: "A",
@@ -291,26 +291,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 10,
     type: "scenario",
     axis: "growth",
-    prompt: "How is this business wired to grow?",
+    prompt: "When you think about growing your business, what feels most natural to you?",
     options: [
       {
         label: "A",
-        text: "It builds systems, infrastructure, and automation that grow without requiring constant involvement.",
+        text: "I want to build something that scales without me \u2014 systems, infrastructure, and automation that grow while I sleep.",
         scores: [{ pole: "C", axis: "growth", points: 3 }],
       },
       {
         label: "B",
-        text: "It\u2019s building for scale but knows early growth requires showing up \u2014 it will systematize once it has traction.",
+        text: "I\u2019m building for scale but I know early growth comes from me showing up \u2014 I\u2019ll systematize once I have traction.",
         scores: [{ pole: "C", axis: "growth", points: 1 }],
       },
       {
         label: "C",
-        text: "It grows by building community \u2014 when the people around it become advocates, growth takes care of itself.",
+        text: "I grow by building community \u2014 when the people around my brand become advocates, growth takes care of itself.",
         scores: [{ pole: "R", axis: "growth", points: 1 }],
       },
       {
         label: "D",
-        text: "It grows one relationship at a time. Its most important moments have always come from one person trusting it enough to open a door.",
+        text: "I grow one relationship at a time. My most important business moments have always come from one person trusting me enough to open a door.",
         scores: [{ pole: "R", axis: "growth", points: 3 }],
       },
     ],
@@ -319,26 +319,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 11,
     type: "scenario",
     axis: "growth",
-    prompt: "This business has $5,000 to invest in growth right now. Where does it go?",
+    prompt: "You have $5,000 to invest in growth right now. Where does it go?",
     options: [
       {
         label: "A",
-        text: "Technology or systems that remove friction and let the business run without constant involvement.",
+        text: "Technology or systems that remove me from a process and let the business run without my constant involvement.",
         scores: [{ pole: "C", axis: "growth", points: 3 }],
       },
       {
         label: "B",
-        text: "A tool or platform that delivers better data, better automation, or better reach at scale.",
+        text: "A tool or platform that gives me better data, better automation, or better reach at scale.",
         scores: [{ pole: "C", axis: "growth", points: 1 }],
       },
       {
         label: "C",
-        text: "Building its presence online \u2014 content, visibility, and a following that grows the business by growing its voice.",
+        text: "Building my personal brand online \u2014 content, visibility, and a following that grows my business by growing my voice.",
         scores: [{ pole: "R", axis: "growth", points: 1 }],
       },
       {
         label: "D",
-        text: "A targeted outreach strategy \u2014 deepening relationships with the exact people who can move it forward.",
+        text: "A targeted outreach strategy \u2014 deepening relationships with the exact people who can move my business forward.",
         scores: [{ pole: "R", axis: "growth", points: 3 }],
       },
     ],
@@ -347,7 +347,7 @@ export const quizQuestions: QuizQuestion[] = [
     id: 12,
     type: "image_pick",
     axis: "growth",
-    prompt: "Pick the image that feels most like how this business grows.",
+    prompt: "Pick the image that feels most like how your business grows.",
     options: [
       {
         label: "A",
@@ -377,26 +377,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 13,
     type: "scenario",
     axis: "tech",
-    prompt: "When a new AI tool or technology platform emerges in this industry, how does this business respond?",
+    prompt: "When a new AI tool or technology platform emerges in your industry, what\u2019s your honest reaction?",
     options: [
       {
         label: "A",
-        text: "It\u2019s already in it before most people know it exists. Technology is core to how this business thinks and builds.",
+        text: "I\u2019m already in it before most people know it exists. Technology is where I think and where I build.",
         scores: [{ pole: "N", axis: "tech", points: 3 }],
       },
       {
         label: "B",
-        text: "It adopts early \u2014 it wants to understand new technology quickly and find where it fits.",
+        text: "I\u2019m an early adopter \u2014 I want to understand it quickly and figure out how it fits into what I\u2019m building.",
         scores: [{ pole: "N", axis: "tech", points: 1 }],
       },
       {
         label: "C",
-        text: "It watches how others use it first, then adopts what makes sense for its specific model.",
+        text: "I\u2019ll watch how others use it first, then adopt what makes sense for my specific business.",
         scores: [{ pole: "A", axis: "tech", points: 1 }],
       },
       {
         label: "D",
-        text: "It adopts technology when it solves a real problem the business already has. It doesn\u2019t chase tools for the sake of it.",
+        text: "I adopt technology when it solves a real problem I already have. I don\u2019t chase tools for the sake of it.",
         scores: [{ pole: "A", axis: "tech", points: 3 }],
       },
     ],
@@ -405,26 +405,26 @@ export const quizQuestions: QuizQuestion[] = [
     id: 14,
     type: "scenario",
     axis: "tech",
-    prompt: "How would you describe this business\u2019s relationship with AI right now?",
+    prompt: "How would you describe your relationship with the AI tools you use in your business right now?",
     options: [
       {
         label: "A",
-        text: "It\u2019s building with AI, not just using it. AI is embedded in how this business thinks, creates, and operates.",
+        text: "I\u2019m building with AI, not just using it. It\u2019s embedded in how I think, create, and operate every day.",
         scores: [{ pole: "N", axis: "tech", points: 3 }],
       },
       {
         label: "B",
-        text: "AI is integrated into most of what this business does \u2014 it\u2019s become a natural part of how it works.",
+        text: "I\u2019ve integrated AI into most of what I do \u2014 it\u2019s become a natural part of how I work.",
         scores: [{ pole: "N", axis: "tech", points: 1 }],
       },
       {
         label: "C",
-        text: "This business uses AI for specific tasks where it clearly saves time or improves output.",
+        text: "I use AI for specific tasks where it clearly saves me time or improves my output.",
         scores: [{ pole: "A", axis: "tech", points: 1 }],
       },
       {
         label: "D",
-        text: "This business uses AI when it has to. It stays in control of its process and brings in technology on its own terms.",
+        text: "I use AI when I have to. I prefer to stay in control of my process and bring in technology on my terms.",
         scores: [{ pole: "A", axis: "tech", points: 3 }],
       },
     ],
@@ -433,7 +433,7 @@ export const quizQuestions: QuizQuestion[] = [
     id: 15,
     type: "image_pick",
     axis: "tech",
-    prompt: "Pick the image that feels most like this business\u2019s relationship with technology.",
+    prompt: "Pick the image that feels most like your relationship with technology.",
     options: [
       {
         label: "A",
@@ -463,11 +463,11 @@ export const quizQuestions: QuizQuestion[] = [
     id: 16,
     type: "scenario",
     axis: "cross",
-    prompt: "This business has a big new idea. What happens next?",
+    prompt: "You have a big idea that excites you. What happens next?",
     options: [
       {
         label: "A",
-        text: "It starts building immediately \u2014 the idea gets clearer in motion. Planning slows this business down.",
+        text: "I start building immediately \u2014 the idea gets clearer as I move. Planning slows me down.",
         scores: [
           { pole: "E", axis: "vision", points: 3 },
           { pole: "I", axis: "build", points: 3 },
@@ -475,7 +475,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "B",
-        text: "It sketches the broad strokes and starts moving \u2014 no full plan needed, just enough to begin.",
+        text: "I sketch the broad strokes and start moving \u2014 I don\u2019t need a full plan, just enough to get going.",
         scores: [
           { pole: "E", axis: "vision", points: 1 },
           { pole: "I", axis: "build", points: 1 },
@@ -483,7 +483,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "C",
-        text: "It maps carefully before touching it \u2014 a big idea deserves a solid foundation before execution.",
+        text: "I map it out carefully before I touch it \u2014 a big idea deserves a solid foundation before execution.",
         scores: [
           { pole: "P", axis: "vision", points: 1 },
           { pole: "S", axis: "build", points: 1 },
@@ -491,7 +491,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "D",
-        text: "It pressure tests first. This business wants to know exactly what it\u2019s building and how before investing a single hour.",
+        text: "I pressure test it first. I want to know exactly what I\u2019m building and exactly how before I invest a single hour.",
         scores: [
           { pole: "P", axis: "vision", points: 3 },
           { pole: "S", axis: "build", points: 3 },
@@ -503,11 +503,11 @@ export const quizQuestions: QuizQuestion[] = [
     id: 17,
     type: "scenario",
     axis: "cross",
-    prompt: "This business has found its place in the market. How does it own it?",
+    prompt: "You\u2019ve found your place in the market. How do you own it?",
     options: [
       {
         label: "A",
-        text: "It goes deeper than anyone else and builds the infrastructure to hold that position permanently.",
+        text: "I go deeper than anyone else and build the infrastructure to hold that position permanently.",
         scores: [
           { pole: "D", axis: "market", points: 3 },
           { pole: "C", axis: "growth", points: 3 },
@@ -515,7 +515,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "B",
-        text: "It establishes depth in the market and grows a community around what it knows better than anyone.",
+        text: "I establish my depth in the market and then grow my community around what I know better than anyone.",
         scores: [
           { pole: "D", axis: "market", points: 1 },
           { pole: "R", axis: "growth", points: 1 },
@@ -523,7 +523,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "C",
-        text: "It disrupts the existing model and scales fast before anyone can catch up.",
+        text: "I disrupt the existing model and scale fast before anyone can catch up.",
         scores: [
           { pole: "X", axis: "market", points: 1 },
           { pole: "C", axis: "growth", points: 1 },
@@ -531,7 +531,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "D",
-        text: "It blows up the old way of doing things and brings people along \u2014 its movement becomes its market.",
+        text: "I blow up the old way of doing things and bring people with me \u2014 my movement becomes my market.",
         scores: [
           { pole: "X", axis: "market", points: 3 },
           { pole: "R", axis: "growth", points: 3 },
@@ -543,11 +543,11 @@ export const quizQuestions: QuizQuestion[] = [
     id: 18,
     type: "scenario",
     axis: "cross",
-    prompt: "A powerful new AI capability lands in this industry. How does this business respond?",
+    prompt: "A powerful new AI capability lands in your industry. What\u2019s your instinct?",
     options: [
       {
         label: "A",
-        text: "It immediately sees ten directions it could take it \u2014 and starts building before it\u2019s finished deciding which one.",
+        text: "I immediately see ten directions I could take it \u2014 and I start building before I\u2019ve finished deciding which one.",
         scores: [
           { pole: "N", axis: "tech", points: 3 },
           { pole: "E", axis: "vision", points: 3 },
@@ -555,7 +555,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "B",
-        text: "It jumps in and experiments \u2014 the possibilities are exciting and it wants to explore all of them.",
+        text: "I jump in and start experimenting \u2014 the possibilities are exciting and I want to explore all of them.",
         scores: [
           { pole: "N", axis: "tech", points: 1 },
           { pole: "E", axis: "vision", points: 1 },
@@ -563,7 +563,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "C",
-        text: "It looks carefully and identifies the one specific way this capability could sharpen what it\u2019s already doing.",
+        text: "I look at it carefully and identify the one specific way it could sharpen what I\u2019m already doing.",
         scores: [
           { pole: "A", axis: "tech", points: 1 },
           { pole: "P", axis: "vision", points: 1 },
@@ -571,7 +571,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "D",
-        text: "It watches, assesses, and adopts only when it knows exactly how this serves its precise vision \u2014 not before.",
+        text: "I watch, I assess, and when I know exactly how it serves my precise vision I adopt it \u2014 not before.",
         scores: [
           { pole: "A", axis: "tech", points: 3 },
           { pole: "P", axis: "vision", points: 3 },

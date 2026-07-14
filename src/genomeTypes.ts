@@ -102,7 +102,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
   },
   PIDCN: {
-    name: "The Specialist",
+    name: "The Architect",
     description:
       "You are the founder who combines laser focus with raw instinct \u2014 and it works. Your vision is precise, your moves are intuitive, and your market strategy is to go deeper than anyone thought possible. You scale through systems and technology, building infrastructure that holds your depth in place while you keep pushing further. You don\u2019t need to see every possibility. You need to see the right one \u2014 and you always do. Where other founders spread thin chasing breadth, you drill down until you own the space entirely. Your competitors don\u2019t lose to you on speed. They lose to you because by the time they arrive, you\u2019ve already built something they can\u2019t replicate.",
     advantages: [
@@ -121,7 +121,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
   },
   ESDCN: {
-    name: "The Architect",
+    name: "The Specialist",
     description:
       "You are the founder who builds empires on blueprints. Your vision is expansive, your process is systematic, and your market instinct is to go deep where others go wide. You scale through infrastructure and technology because you understand that lasting growth isn\u2019t built on hustle \u2014 it\u2019s built on systems. You see the full landscape, but you don\u2019t scatter. You map it, you plan it, and you execute it with the kind of operational discipline that turns ambitious visions into inevitable outcomes. You are the founder who makes the complex look simple, because behind every move is a framework you\u2019ve already stress-tested.",
     advantages: [
