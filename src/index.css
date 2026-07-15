@@ -6,3 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@media print {
+  body { background: #FAF7F2 !important; }
+  .print\:hidden { display: none !important; }
+}

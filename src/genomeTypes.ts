@@ -66,7 +66,7 @@ const anchorTypes: Record<string, AnchorType> = {
   EIDCN: {
     name: "The Visionary",
     description:
-      "You are the founder who sees everything and builds accordingly. Your vision is wide, your instincts are sharp, and you move before the market knows what hit it. You go deep where others skim the surface, and you build infrastructure that scales without you. Technology isn\u2019t a tool you use \u2014 it\u2019s the air you breathe. You are wired to build something massive, something lasting, something that changes the rules. The risk isn\u2019t that you won\u2019t build it. The risk is that you\u2019ll build so fast and so wide that you outrun your own foundation. But when a Deepscale founder gets her systems right, she doesn\u2019t just win her market \u2014 she redefines it.",
+      "You are the founder who sees everything and builds accordingly. Your vision is wide, your instincts are sharp, and you move before the market knows what hit it. You go deep where others skim the surface, and you build infrastructure that scales without you. Technology isn\u2019t a tool you use \u2014 it\u2019s the air you breathe. You are wired to build something massive, something lasting, something that changes the rules. The risk isn\u2019t that you won\u2019t build it. The risk is that you\u2019ll build so fast and so wide that you outrun your own foundation. But when a Visionary founder gets her systems right, she doesn\u2019t just win her market \u2014 she redefines it.",
     advantages: [
       "You see market depth that others miss entirely \u2014 you find the customers, the problems, and the opportunities that no one else is serving.",
       "You build scalable infrastructure instinctively \u2014 your business is designed to grow without requiring more of your time.",
@@ -243,8 +243,8 @@ export function getGenomeResult(scores: AxisScores): GenomeResult {
 
   return {
     code,
-    name: `Genome Type: ${code}`,
-    description: `You are a ${visionLabel.toLowerCase()}, ${buildLabel.toLowerCase()} founder with a ${marketLabel.toLowerCase()}\u2019s market instinct. Your growth engine is ${growthLabel.toLowerCase()} and your relationship with technology is ${techLabel.toLowerCase()}. This is a powerful combination \u2014 your Genome reveals a founder who builds with intention and moves with conviction. Your full Genome Report will map exactly how these traits interact, where your biggest leverage points are, and which AI tools are purpose-built for the way you operate.`,
+    name: `DNA Type: ${code}`,
+    description: `You are a ${visionLabel.toLowerCase()}, ${buildLabel.toLowerCase()} founder with a ${marketLabel.toLowerCase()}\u2019s market instinct. Your growth engine is ${growthLabel.toLowerCase()} and your relationship with technology is ${techLabel.toLowerCase()}. This is a powerful combination \u2014 your DNA reveals a founder who builds with intention and moves with conviction. Your full DNA Report will map exactly how these traits interact, where your biggest leverage points are, and which AI tools are purpose-built for the way you operate.`,
     advantages: [
       `Your ${visionLabel.toLowerCase()} vision gives you the ability to see opportunities that others in your market consistently miss.`,
       `Your ${buildLabel.toLowerCase()} build mode means you execute in a way that feels natural and sustainable \u2014 you don\u2019t fight your own process.`,
@@ -252,7 +252,7 @@ export function getGenomeResult(scores: AxisScores): GenomeResult {
     ],
     blindSpots: [
       `Your ${visionLabel.toLowerCase()} approach may need deliberate counterbalancing to avoid ${poles[0] === "E" ? "overextension" : "tunnel vision"} as your business grows.`,
-      `Your ${growthLabel.toLowerCase()} growth engine is powerful, but your full Genome Report will reveal the specific moments where it can become a bottleneck.`,
+      `Your ${growthLabel.toLowerCase()} growth engine is powerful, but your full DNA Report will reveal the specific moments where it can become a bottleneck.`,
     ],
     aiAreas: [
       `Strategic planning and decision support \u2014 AI that matches the way your ${buildLabel.toLowerCase()} mind processes information and makes moves.`,
