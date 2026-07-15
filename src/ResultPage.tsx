@@ -82,9 +82,9 @@ function generateCard(
   const isWide = w / h > 1.5; // LinkedIn
   const isTall = h / w > 1.2; // Stories / TikTok
 
-  // Layout proportions
-  const topBarH = isTall ? h * 0.33 : isWide ? h * 0.42 : h * 0.35;
-  const bottomBarH = isTall ? h * 0.18 : isWide ? h * 0.28 : h * 0.20;
+  // Layout proportions — top ~1/3, image ~1/2, bottom ~1/6
+  const topBarH = isTall ? h * 0.32 : isWide ? h * 0.40 : h * 0.34;
+  const bottomBarH = isTall ? h * 0.16 : isWide ? h * 0.26 : h * 0.18;
   const imageH = h - topBarH - bottomBarH;
 
   // ─── Top bar ───
@@ -93,43 +93,37 @@ function generateCard(
 
   ctx.fillStyle = ivory;
   ctx.textAlign = "center";
+  const cx = w / 2;
 
-  const topCenterX = w / 2;
-  const introSize = isTall ? 32 : isWide ? 22 : 28;
-  const typeSize = isTall ? 96 : isWide ? 52 : 72;
-  const byLineSize = isTall ? 40 : isWide ? 26 : 34;
+  // Scale factor based on canvas width
+  const s = w / 1080;
 
-  // "I'm very proud to announce / that I have been diagnosed as a"
+  // Line 1+2: small italic intro text
+  const introSize = Math.round(28 * s);
   ctx.font = `italic 400 ${introSize}px 'Libre Baskerville', serif`;
-  const introY = isTall ? topBarH * 0.18 : isWide ? topBarH * 0.22 : topBarH * 0.20;
-  ctx.fillText("I\u2019m very proud to announce", topCenterX, introY);
-  ctx.fillText("that I have been diagnosed as a", topCenterX, introY + introSize * 1.5);
+  const introY = topBarH * 0.12;
+  ctx.fillText("I\u2019m very proud to announce", cx, introY + introSize);
+  ctx.fillText("that I have been diagnosed as a", cx, introY + introSize * 2.6);
 
-  // Type name — large
+  // Line 3+4: large bold type name
+  const typeSize = Math.round((isTall ? 110 : isWide ? 60 : 85) * s);
   ctx.font = `700 ${typeSize}px 'Libre Baskerville', serif`;
-  const typeY = isTall ? topBarH * 0.52 : isWide ? topBarH * 0.55 : topBarH * 0.52;
-  const words = typeName.toUpperCase().split(" ");
-  if (words.length <= 2 && !isWide) {
-    // Stack words for tall/square
-    words.forEach((word, i) => {
-      ctx.fillText(word, topCenterX, typeY + i * typeSize * 1.05);
-    });
-  } else {
-    ctx.fillText(typeName.toUpperCase(), topCenterX, typeY);
-  }
+  const typeStartY = introY + introSize * 2.6 + typeSize * 0.9;
+  const typeWord = typeName.toUpperCase();
+  ctx.fillText(typeWord, cx, typeStartY);
+  ctx.fillText("FOUNDER", cx, typeStartY + typeSize * 1.0);
 
-  // "BY THE FOUNDHER DNA TEST"
-  ctx.font = `500 ${byLineSize}px 'DM Sans', sans-serif`;
-  ctx.letterSpacing = "0.08em";
-  const byLineY = isTall ? topBarH * 0.88 : isWide ? topBarH * 0.85 : topBarH * 0.88;
-  ctx.fillText("BY THE FOUNDHER", topCenterX, byLineY - byLineSize * 0.6);
-  ctx.fillText("DNA TEST", topCenterX, byLineY + byLineSize * 0.5);
+  // Line 5: small caps "BY THE FOUNDHER DNA TEST"
+  const bySize = Math.round(30 * s);
+  ctx.font = `500 ${bySize}px 'DM Sans', sans-serif`;
+  const byY = typeStartY + typeSize * 1.0 + bySize * 1.8;
+  ctx.fillText("BY THE FOUNDHER", cx, byY);
+  ctx.fillText("DNA TEST", cx, byY + bySize * 1.4);
 
-  // ─── Center wrist image ───
+  // ─── Center wrist image (cover fit) ───
   const imgAspect = wristImg.naturalWidth / wristImg.naturalHeight;
-  let drawW = w;
-  let drawH = imageH;
   const slotAspect = w / imageH;
+  let drawW: number, drawH: number;
 
   if (imgAspect > slotAspect) {
     drawH = imageH;
@@ -150,17 +144,16 @@ function generateCard(
   ctx.fillStyle = ivory;
   ctx.textAlign = "center";
 
-  const ctaSize = isTall ? 30 : isWide ? 20 : 26;
-  const urlSize = isTall ? 34 : isWide ? 24 : 30;
+  const ctaSize = Math.round(26 * s);
+  const urlSize = Math.round(30 * s);
   const bottomCenterY = h - bottomBarH / 2;
 
   ctx.font = `italic 400 ${ctaSize}px 'Libre Baskerville', serif`;
-  ctx.fillText("Being a founder is in your DNA.", w / 2, bottomCenterY - ctaSize * 1.6);
-  ctx.fillText("Discover yours. It\u2019s free.", w / 2, bottomCenterY - ctaSize * 0.2);
+  ctx.fillText("Being a founder is in your DNA.", cx, bottomCenterY - ctaSize * 1.4);
+  ctx.fillText("Discover yours. It\u2019s free.", cx, bottomCenterY + ctaSize * 0.1);
 
   ctx.font = `700 ${urlSize}px 'DM Sans', sans-serif`;
-  ctx.letterSpacing = "0.06em";
-  ctx.fillText("FOUNDHERDNA.COM", w / 2, bottomCenterY + urlSize * 1.4);
+  ctx.fillText("FOUNDHERDNA.COM", cx, bottomCenterY + ctaSize * 0.1 + urlSize * 1.6);
 }
 
 export default function ResultPage() {
@@ -388,15 +381,15 @@ export default function ResultPage() {
           <p className="font-['DM_Sans'] text-[#3B2A22]/60 text-sm font-medium text-center mb-3">
             Select your skin tone
           </p>
-          <div className="flex justify-center gap-4 mb-8">
+          <div className="flex justify-center gap-5 mb-8">
             {skinTones.map((tone) => (
               <button
                 key={tone.id}
                 onClick={() => handleToneChange(tone)}
-                className="flex flex-col items-center gap-1.5 bg-transparent border-none cursor-pointer p-0"
+                className="flex flex-col items-center gap-2 bg-transparent border-none cursor-pointer p-0"
               >
                 <div
-                  className={`w-12 h-12 rounded-full overflow-hidden border-2 transition-all ${
+                  className={`w-20 h-20 rounded-full overflow-hidden border-3 transition-all ${
                     selectedTone.id === tone.id
                       ? "border-[#C1603A] shadow-md scale-110"
                       : "border-[#3B2A22]/15 hover:border-[#3B2A22]/30"
@@ -405,7 +398,7 @@ export default function ResultPage() {
                   <img
                     src={tone.image}
                     alt={tone.label}
-                    className="w-full h-full object-cover"
+                    className="w-[200%] h-[200%] object-cover -ml-[50%] -mt-[25%]"
                   />
                 </div>
                 <span className={`font-['DM_Sans'] text-xs ${
@@ -438,11 +431,13 @@ export default function ResultPage() {
           </div>
 
           {/* Preview canvas */}
-          <div className="border border-[#3B2A22]/10 rounded-xl overflow-hidden mb-6 bg-[#1C1A17]">
-            <canvas
-              ref={previewRef}
-              className="w-full h-auto block"
-            />
+          <div className="flex justify-center mb-6">
+            <div className="border border-[#3B2A22]/10 rounded-xl overflow-hidden bg-[#1C1A17]" style={{ maxHeight: 640, maxWidth: selectedPlatform.w / selectedPlatform.h > 1 ? 540 : 360 }}>
+              <canvas
+                ref={previewRef}
+                className="w-full h-auto block"
+              />
+            </div>
           </div>
 
           {/* Hidden full-res canvas for download */}
