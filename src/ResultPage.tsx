@@ -381,31 +381,22 @@ export default function ResultPage() {
           <p className="font-['DM_Sans'] text-[#3B2A22]/60 text-sm font-medium text-center mb-3">
             Select your skin tone
           </p>
-          <div className="flex justify-center gap-5 mb-8">
+          <div className="flex justify-center gap-3 mb-8">
             {skinTones.map((tone) => (
               <button
                 key={tone.id}
                 onClick={() => handleToneChange(tone)}
-                className="flex flex-col items-center gap-2 bg-transparent border-none cursor-pointer p-0"
+                className={`w-[80px] h-[120px] rounded-lg overflow-hidden border-2 cursor-pointer p-0 transition-all ${
+                  selectedTone.id === tone.id
+                    ? "border-[#C1603A] scale-105 shadow-md"
+                    : "border-transparent hover:border-[#3B2A22]/20"
+                }`}
               >
-                <div
-                  className={`w-20 h-20 rounded-full overflow-hidden border-3 transition-all ${
-                    selectedTone.id === tone.id
-                      ? "border-[#C1603A] shadow-md scale-110"
-                      : "border-[#3B2A22]/15 hover:border-[#3B2A22]/30"
-                  }`}
-                >
-                  <img
-                    src={tone.image}
-                    alt={tone.label}
-                    className="w-[200%] h-[200%] object-cover -ml-[50%] -mt-[25%]"
-                  />
-                </div>
-                <span className={`font-['DM_Sans'] text-xs ${
-                  selectedTone.id === tone.id ? "text-[#C1603A] font-medium" : "text-[#3B2A22]/50"
-                }`}>
-                  {tone.label}
-                </span>
+                <img
+                  src={tone.image}
+                  alt={tone.label}
+                  className="w-full h-full object-cover"
+                />
               </button>
             ))}
           </div>
