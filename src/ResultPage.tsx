@@ -13,24 +13,24 @@ const axisLabels: { key: keyof AxisScores; name: string; poleA: string; codeA: s
 
 const axisDescriptions: Record<string, Record<string, string>> = {
   vision: {
-    E: "Your business sees opportunity everywhere. Its natural instinct is to expand \u2014 new directions, new markets, new possibilities. This expansive vision is a force multiplier when paired with the right execution strategy.",
-    P: "Your business is built on clarity and focus. It knows exactly what it does, who it serves, and where it\u2019s headed. This precision is your competitive edge \u2014 you don\u2019t waste energy chasing what doesn\u2019t fit.",
+    E: "You see opportunity everywhere. Your natural instinct is to expand \u2014 new directions, new markets, new possibilities. This expansive vision is a force multiplier when paired with the right execution strategy.",
+    P: "You are built on clarity and focus. You know exactly what you do, who you serve, and where you\u2019re headed. This precision is your competitive edge \u2014 you don\u2019t waste energy chasing what doesn\u2019t fit.",
   },
   build: {
-    I: "Your business builds best in motion. It moves on instinct, iterates fast, and finds its direction through action rather than planning. This intuitive approach lets you capitalize on opportunities others are still analyzing.",
-    S: "Your business builds on structure. Every move is planned, every system is intentional, and execution follows a framework. This systematic approach creates operational excellence that compounds over time.",
+    I: "You build best in motion. You move on instinct, iterate fast, and find your direction through action rather than planning. This intuitive approach lets you capitalize on opportunities others are still analyzing.",
+    S: "You build on structure. Every move is planned, every system is intentional, and execution follows a framework. This systematic approach creates operational excellence that compounds over time.",
   },
   market: {
-    D: "Your business goes deeper than anyone else in its market. It finds the underserved layers, the unmet needs, the customers nobody else is truly reaching. This depth creates loyalty and expertise that surface-level competitors cannot replicate.",
-    X: "Your business sees broken models and builds replacements. It doesn\u2019t compete within existing frameworks \u2014 it creates new ones. This disruptive instinct positions you to capture markets that don\u2019t yet know they need what you\u2019re building.",
+    D: "You go deeper than anyone else in your market. You find the underserved layers, the unmet needs, the customers nobody else is truly reaching. This depth creates loyalty and expertise that surface-level competitors cannot replicate.",
+    X: "You see broken models and build replacements. You don\u2019t compete within existing frameworks \u2014 you create new ones. This disruptive instinct positions you to capture markets that don\u2019t yet know they need what you\u2019re building.",
   },
   growth: {
-    C: "Your business is engineered to scale. It builds systems, infrastructure, and automation that grow without requiring constant involvement. This scale-driven engine means your business compounds in value, not in complexity.",
-    R: "Your business grows through people. Every client, partner, and advocate is chosen deliberately, and growth comes from trust earned one relationship at a time. This creates a moat no competitor can buy or replicate.",
+    C: "You are engineered to scale. You build systems, infrastructure, and automation that grow without requiring your constant involvement. This scale-driven engine means you compound in value, not in complexity.",
+    R: "You grow through people. Every client, partner, and advocate is chosen deliberately, and growth comes from trust earned one relationship at a time. This creates a moat no competitor can buy or replicate.",
   },
   tech: {
-    N: "Technology is embedded in how your business thinks, creates, and operates. It\u2019s not a tool you reach for \u2014 it\u2019s the environment you build in. This native fluency gives you a permanent speed and capability advantage.",
-    A: "Your business adopts technology with discipline and intention. It doesn\u2019t chase tools \u2014 it integrates them when they\u2019ve earned their place. This adaptive approach means every technology investment is fully leveraged.",
+    N: "Technology is embedded in how you think, create, and operate. It\u2019s not a tool you reach for \u2014 it\u2019s the environment you build in. This native fluency gives you a permanent speed and capability advantage.",
+    A: "You adopt technology with discipline and intention. You don\u2019t chase tools \u2014 you integrate them when they\u2019ve earned their place. This adaptive approach means every technology investment is fully leveraged.",
   },
 };
 
