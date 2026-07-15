@@ -373,8 +373,8 @@ export default function ResultPage() {
       {/* ─── Share Your Result ─── */}
       <section className="py-16 px-6 print:hidden">
         <div className="max-w-[540px] mx-auto">
-          <h3 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-xl sm:text-2xl text-center mb-8">
-            Share with the World Who You Are
+          <h3 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-2xl sm:text-3xl text-center mb-8">
+            Declare Your Founder DNA to the World
           </h3>
 
           {/* Skin tone selector */}
