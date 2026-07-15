@@ -69,7 +69,7 @@ const anchorTypes: Record<string, AnchorType> = {
       "You are the founder who sees everything and builds accordingly. Your vision is wide, your instincts are sharp, and you move before the market knows what hit it. You go deep where others skim the surface, and you build infrastructure that scales without you. Technology isn\u2019t a tool you use \u2014 it\u2019s the air you breathe. You are wired to build something massive, something lasting, something that changes the rules. The risk isn\u2019t that you won\u2019t build it. The risk is that you\u2019ll build so fast and so wide that you outrun your own foundation. But when a Visionary founder gets her systems right, she doesn\u2019t just win her market \u2014 she redefines it.",
     advantages: [
       "You see market depth that others miss entirely \u2014 you find the customers, the problems, and the opportunities that no one else is serving.",
-      "You build scalable infrastructure instinctively \u2014 your business is designed to grow without requiring more of your time.",
+      "You build scalable infrastructure instinctively \u2014 you are designed to grow without requiring more of your time.",
       "You adopt and integrate technology faster than your competitors, giving you a permanent speed advantage.",
     ],
     blindSpots: [
@@ -93,7 +93,7 @@ const anchorTypes: Record<string, AnchorType> = {
     ],
     blindSpots: [
       "Your need for a complete plan before you move can cost you first-mover advantage in fast-moving markets.",
-      "You can over-invest in relationships that feel productive but don\u2019t convert to revenue or growth at the rate your business needs.",
+      "You can over-invest in relationships that feel productive but don\u2019t convert to revenue or growth at the rate you need.",
     ],
     aiAreas: [
       "Strategic planning and scenario modeling \u2014 AI that pressure-tests your plans before you invest real resources.",
@@ -108,7 +108,7 @@ const anchorTypes: Record<string, AnchorType> = {
     advantages: [
       "Your precise vision paired with intuitive execution means you move decisively into exactly the right opportunities \u2014 no wasted motion.",
       "Your deep market focus creates expertise and customer loyalty that no surface-level competitor can touch.",
-      "Your tech-native, scale-driven approach means your business compounds in value without compounding in complexity.",
+      "Your tech-native, scale-driven approach means you compound in value without compounding in complexity.",
     ],
     blindSpots: [
       "Your precision can become rigidity \u2014 when the market shifts, your instinct to stay the course may keep you locked on a target that\u2019s moved.",
@@ -180,7 +180,7 @@ const anchorTypes: Record<string, AnchorType> = {
   EIDCA: {
     name: "The Builder",
     description:
-      "You are the founder who sees everything, moves on instinct, goes deeper than anyone, and builds to scale \u2014 all while keeping technology in its place. You don\u2019t chase tools. You adopt them when they\u2019ve earned it. Your vision is expansive, your execution is intuitive, and your market strategy is to find the layer nobody else has reached and build infrastructure to own it. Technology serves your business, not the other way around. You are the founder who proves that you don\u2019t need to be tech-obsessed to build something massive \u2014 you just need to be right about what matters. And you usually are.",
+      "You are the founder who sees everything, moves on instinct, goes deeper than anyone, and builds to scale \u2014 all while keeping technology in its place. You don\u2019t chase tools. You adopt them when they\u2019ve earned it. Your vision is expansive, your execution is intuitive, and your market strategy is to find the layer nobody else has reached and build infrastructure to own it. Technology serves you, not the other way around. You are the founder who proves that you don\u2019t need to be tech-obsessed to build something massive \u2014 you just need to be right about what matters. And you usually are.",
     advantages: [
       "Your expansive vision and intuitive speed let you identify and move on deep market opportunities faster than competitors who are still planning.",
       "Your scale-driven growth engine means you build businesses designed to run without you \u2014 your infrastructure does the heavy lifting.",
@@ -251,7 +251,7 @@ export function getGenomeResult(scores: AxisScores): GenomeResult {
       `Your ${marketLabel.toLowerCase()}\u2019s instinct ensures you\u2019re never competing on someone else\u2019s terms \u2014 you set the terms.`,
     ],
     blindSpots: [
-      `Your ${visionLabel.toLowerCase()} approach may need deliberate counterbalancing to avoid ${poles[0] === "E" ? "overextension" : "tunnel vision"} as your business grows.`,
+      `Your ${visionLabel.toLowerCase()} approach may need deliberate counterbalancing to avoid ${poles[0] === "E" ? "overextension" : "tunnel vision"} as you grow.`,
       `Your ${growthLabel.toLowerCase()} growth engine is powerful, but your full DNA Report will reveal the specific moments where it can become a bottleneck.`,
     ],
     aiAreas: [

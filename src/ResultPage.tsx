@@ -77,7 +77,7 @@ function generateCard(
   canvas.width = w;
   canvas.height = h;
 
-  const espresso = "#1C1A17";
+  const espresso = "#3B2A22";
   const ivory = "#F4F1EA";
   const isWide = w / h > 1.5; // LinkedIn
   const isTall = h / w > 1.2; // Stories / TikTok
@@ -99,26 +99,26 @@ function generateCard(
   const s = w / 1080;
 
   // Line 1+2: small italic intro text
-  const introSize = Math.round(28 * s);
+  const introSize = Math.round(26 * s);
   ctx.font = `italic 400 ${introSize}px 'Libre Baskerville', serif`;
-  const introY = topBarH * 0.12;
+  const introY = topBarH * 0.08;
   ctx.fillText("I\u2019m very proud to announce", cx, introY + introSize);
-  ctx.fillText("that I have been diagnosed as a", cx, introY + introSize * 2.6);
+  ctx.fillText("that I have been diagnosed as a", cx, introY + introSize * 2.8);
 
-  // Line 3+4: large bold type name
-  const typeSize = Math.round((isTall ? 110 : isWide ? 60 : 85) * s);
+  // Line 3+4: large bold type name — generous gap from intro
+  const typeSize = Math.round((isTall ? 105 : isWide ? 58 : 80) * s);
   ctx.font = `700 ${typeSize}px 'Libre Baskerville', serif`;
-  const typeStartY = introY + introSize * 2.6 + typeSize * 0.9;
+  const typeStartY = introY + introSize * 2.8 + typeSize * 1.15;
   const typeWord = typeName.toUpperCase();
   ctx.fillText(typeWord, cx, typeStartY);
-  ctx.fillText("FOUNDER", cx, typeStartY + typeSize * 1.0);
+  ctx.fillText("FOUNDER", cx, typeStartY + typeSize * 1.15);
 
-  // Line 5: small caps "BY THE FOUNDHER DNA TEST"
-  const bySize = Math.round(30 * s);
+  // Line 5: small caps "BY THE FOUNDHER DNA TEST" — generous gap from type name
+  const bySize = Math.round(26 * s);
   ctx.font = `500 ${bySize}px 'DM Sans', sans-serif`;
-  const byY = typeStartY + typeSize * 1.0 + bySize * 1.8;
+  const byY = typeStartY + typeSize * 1.15 + bySize * 2.2;
   ctx.fillText("BY THE FOUNDHER", cx, byY);
-  ctx.fillText("DNA TEST", cx, byY + bySize * 1.4);
+  ctx.fillText("DNA TEST", cx, byY + bySize * 1.6);
 
   // ─── Center wrist image (cover fit) ───
   const imgAspect = wristImg.naturalWidth / wristImg.naturalHeight;
@@ -149,11 +149,11 @@ function generateCard(
   const bottomCenterY = h - bottomBarH / 2;
 
   ctx.font = `italic 400 ${ctaSize}px 'Libre Baskerville', serif`;
-  ctx.fillText("Being a founder is in your DNA.", cx, bottomCenterY - ctaSize * 1.4);
-  ctx.fillText("Discover yours. It\u2019s free.", cx, bottomCenterY + ctaSize * 0.1);
+  ctx.fillText("Being a founder is in your DNA.", cx, bottomCenterY - ctaSize * 1.8);
+  ctx.fillText("Discover yours. It\u2019s free.", cx, bottomCenterY - ctaSize * 0.2);
 
   ctx.font = `700 ${urlSize}px 'DM Sans', sans-serif`;
-  ctx.fillText("FOUNDHERDNA.COM", cx, bottomCenterY + ctaSize * 0.1 + urlSize * 1.6);
+  ctx.fillText("FOUNDHERDNA.COM", cx, bottomCenterY + urlSize * 1.6);
 }
 
 export default function ResultPage() {
@@ -188,7 +188,7 @@ export default function ResultPage() {
     img.crossOrigin = "anonymous";
     img.onload = () => {
       // Preview always renders at a fixed preview size
-      const previewW = 540;
+      const previewW = 405;
       const previewH = Math.round(previewW * (platform.h / platform.w));
       generateCard(canvas, typeName, img, previewW, previewH);
     };
@@ -374,7 +374,7 @@ export default function ResultPage() {
       <section className="py-16 px-6 print:hidden">
         <div className="max-w-[540px] mx-auto">
           <h3 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-xl sm:text-2xl text-center mb-8">
-            Share Your Result
+            Share with the World Who You Are
           </h3>
 
           {/* Skin tone selector */}
@@ -423,7 +423,7 @@ export default function ResultPage() {
 
           {/* Preview canvas */}
           <div className="flex justify-center mb-6">
-            <div className="border border-[#3B2A22]/10 rounded-xl overflow-hidden bg-[#1C1A17]" style={{ maxHeight: 640, maxWidth: selectedPlatform.w / selectedPlatform.h > 1 ? 540 : 360 }}>
+            <div className="border border-[#3B2A22]/10 rounded-xl overflow-hidden bg-[#F4F1EA]" style={{ maxHeight: 480, maxWidth: selectedPlatform.w / selectedPlatform.h > 1 ? 405 : 270 }}>
               <canvas
                 ref={previewRef}
                 className="w-full h-auto block"
