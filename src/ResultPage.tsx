@@ -358,19 +358,7 @@ export default function ResultPage() {
             {/* Terracotta rule */}
             <hr className="border-none h-px bg-[#C1603A] mt-10 mb-6" />
 
-            {/* Download PDF */}
-            <div className="flex justify-end print:hidden">
-              <button
-                onClick={() => window.print()}
-                className="px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
-              >
-                Download Your DNA Profile (PDF)
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-8">
-            <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed mb-4">
+            <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed mb-4">
               Your DNA report suggests you're wired to scale strategically with AI. The BizOps Suite has identified the exact AI protocols built for your founder type — and they're waiting for you.
             </p>
             <a
@@ -381,6 +369,16 @@ export default function ResultPage() {
             >
               Explore AI Biz Ops Suite &rarr;
             </a>
+          </div>
+
+          {/* Download PDF */}
+          <div className="flex justify-end mt-6 print:hidden">
+            <button
+              onClick={() => window.print()}
+              className="px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
+            >
+              Download Your DNA Profile (PDF)
+            </button>
           </div>
         </div>
       </section>
