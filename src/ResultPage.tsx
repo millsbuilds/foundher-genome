@@ -99,7 +99,7 @@ function generateCard(
   const s = w / 1080;
 
   // Line 1+2: small italic intro text
-  const introSize = Math.round(38 * s);
+  const introSize = Math.round(48 * s);
   ctx.font = `italic 400 ${introSize}px 'Libre Baskerville', serif`;
   const introY = topBarH * 0.08;
   ctx.fillText("I\u2019m very proud to announce", cx, introY + introSize);
@@ -114,7 +114,7 @@ function generateCard(
   ctx.fillText("FOUNDER", cx, typeStartY + typeSize * 1.15);
 
   // Line 5: small caps "BY THE FOUNDHER DNA TEST" — generous gap from type name
-  const bySize = Math.round(38 * s);
+  const bySize = Math.round(48 * s);
   ctx.font = `500 ${bySize}px 'DM Sans', sans-serif`;
   const byY = typeStartY + typeSize * 1.15 + bySize * 2.2;
   ctx.fillText("BY THE FOUNDHER", cx, byY);
