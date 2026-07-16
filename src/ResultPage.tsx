@@ -463,19 +463,10 @@ export default function ResultPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Logo mark */}
       <section className="py-20 px-6 print:hidden">
         <div className="max-w-[480px] mx-auto text-center">
-          <img src="/images/FH_mark_official.png" alt="FoundHer AI" className="w-16 mx-auto mb-8" />
-          <p className="font-['DM_Sans'] text-[#3B2A22] text-base leading-relaxed mb-8">
-            Your full DNA Report — including your matched AI agents and DNA Evolution roadmap — is included free with The Cuff.
-          </p>
-          <a
-            href="https://foundherai.ai"
-            className="inline-block w-full py-4 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors no-underline text-center"
-          >
-            Get The Cuff — $297
-          </a>
+          <img src="/images/FH_mark_official.png" alt="FoundHer AI" className="w-16 mx-auto" />
         </div>
       </section>
 
