@@ -355,17 +355,6 @@ export default function ResultPage() {
               ))}
             </div>
 
-            <div className="mt-8">
-              <a
-                href="https://bizopssuite.ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors no-underline"
-              >
-                Explore AI Biz Ops Suite &rarr;
-              </a>
-            </div>
-
             {/* Terracotta rule */}
             <hr className="border-none h-px bg-[#C1603A] mt-10 mb-6" />
 
@@ -378,6 +367,20 @@ export default function ResultPage() {
                 Download Your DNA Profile (PDF)
               </button>
             </div>
+          </div>
+
+          <div className="mt-8">
+            <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed mb-4">
+              Your DNA report suggests you're wired to scale strategically with AI. The BizOps Suite has identified the exact AI protocols built for your founder type — and they're waiting for you.
+            </p>
+            <a
+              href="https://bizopssuite.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors no-underline"
+            >
+              Explore AI Biz Ops Suite &rarr;
+            </a>
           </div>
         </div>
       </section>
