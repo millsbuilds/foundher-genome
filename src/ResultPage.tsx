@@ -77,8 +77,8 @@ function generateCard(
   canvas.width = w;
   canvas.height = h;
 
-  const terracotta = "#C1603A";
   const ivory = "#F4F1EA";
+  const espresso = "#1C1A17";
   const isWide = w / h > 1.5; // LinkedIn
   const isTall = h / w > 1.2; // Stories / TikTok
 
@@ -88,10 +88,10 @@ function generateCard(
   const imageH = h - topBarH - bottomBarH;
 
   // ─── Top bar ───
-  ctx.fillStyle = terracotta;
+  ctx.fillStyle = ivory;
   ctx.fillRect(0, 0, w, topBarH);
 
-  ctx.fillStyle = ivory;
+  ctx.fillStyle = espresso;
   ctx.textAlign = "center";
   const cx = w / 2;
 
@@ -138,10 +138,10 @@ function generateCard(
   ctx.drawImage(wristImg, drawX, drawY, drawW, drawH);
 
   // ─── Bottom bar ───
-  ctx.fillStyle = terracotta;
+  ctx.fillStyle = ivory;
   ctx.fillRect(0, h - bottomBarH, w, bottomBarH);
 
-  ctx.fillStyle = ivory;
+  ctx.fillStyle = espresso;
   ctx.textAlign = "center";
 
   const ctaSize = Math.round(26 * s);
@@ -335,11 +335,11 @@ export default function ResultPage() {
       {/* AI Preview */}
       <section className="py-16 px-6">
         <div className="max-w-[680px] mx-auto">
-          <div className="bg-[#3B2A22] rounded-xl p-8 sm:p-10">
-            <p className="font-['DM_Sans'] text-[#FAF7F2]/60 text-sm font-medium tracking-widest uppercase mb-4">
+          <div className="bg-[#F4F1EA] border border-[#3B2A22]/10 rounded-xl p-8 sm:p-10">
+            <p className="font-['DM_Sans'] text-[#1C1A17]/50 text-sm font-medium tracking-widest uppercase mb-4">
               AI Acceleration Preview
             </p>
-            <h3 className="font-['Libre_Baskerville'] font-bold text-[#FAF7F2] text-xl sm:text-2xl leading-snug mb-3">
+            <h3 className="font-['Libre_Baskerville'] font-bold text-[#1C1A17] text-xl sm:text-2xl leading-snug mb-3">
               Founders with your DNA type are best accelerated by AI in three specific areas.
             </h3>
             <div className="flex flex-col gap-4 mt-8">
@@ -348,25 +348,26 @@ export default function ResultPage() {
                   <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#C1603A] text-[#FAF7F2] text-sm font-['DM_Sans'] font-bold shrink-0">
                     {i + 1}
                   </span>
-                  <p className="font-['DM_Sans'] text-[#FAF7F2]/90 text-base leading-relaxed">
+                  <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
                     {area}
                   </p>
                 </div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Download PDF */}
-      <section className="py-8 px-6 print:hidden">
-        <div className="max-w-[480px] mx-auto text-center">
-          <button
-            onClick={() => window.print()}
-            className="w-full py-4 bg-[#3B2A22] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none hover:bg-[#2a1e18] transition-colors"
-          >
-            Download Your DNA Profile (PDF)
-          </button>
+            {/* Terracotta rule */}
+            <hr className="border-none h-px bg-[#C1603A] mt-10 mb-6" />
+
+            {/* Download PDF */}
+            <div className="flex justify-end print:hidden">
+              <button
+                onClick={() => window.print()}
+                className="px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
+              >
+                Download Your DNA Profile (PDF)
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
