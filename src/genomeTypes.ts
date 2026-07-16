@@ -66,7 +66,7 @@ const anchorTypes: Record<string, AnchorType> = {
   EIDCN: {
     name: "The Visionary",
     description:
-      "You are the founder who sees everything and builds accordingly. Your vision is wide, your instincts are sharp, and you move before the market knows what hit it. You go deep where others skim the surface, and you build infrastructure that scales without you. Technology isn\u2019t a tool you use \u2014 it\u2019s the air you breathe. You are wired to build something massive, something lasting, something that changes the rules. The risk isn\u2019t that you won\u2019t build it. The risk is that you\u2019ll build so fast and so wide that you outrun your own foundation. But when a Visionary Founder gets her systems right, she doesn\u2019t just win her market \u2014 she redefines it.",
+      "You are the founder who sees what isn\u2019t there yet. Not a gap in the market \u2014 a market that doesn\u2019t exist. Your vision operates ahead of the culture, ahead of the conversation, ahead of the capital. You don\u2019t follow trends; you sense the conditions that will create them. Where others see risk, you see inevitability. Where others need proof, you already know. The challenge isn\u2019t your vision \u2014 it\u2019s finding the world patient enough to catch up to it. When a Visionary Founder gets her timing right, she doesn\u2019t just build a company. She builds a category.",
     advantages: [
       "You see market depth that others miss entirely \u2014 you find the customers, the problems, and the opportunities that no one else is serving.",
       "You build scalable infrastructure instinctively \u2014 you are designed to grow without requiring more of your time.",
