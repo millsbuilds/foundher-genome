@@ -29,7 +29,13 @@ export default function Quiz() {
 
   if (!firstName || !email) return null;
 
-  const randomizedQuestions = useMemo(() => shuffleArray(quizQuestions), []);
+  // Shuffle question order and shuffle each question's options independently
+  const randomizedQuestions = useMemo(() => {
+    return shuffleArray(quizQuestions).map((q) => ({
+      ...q,
+      options: shuffleArray(q.options),
+    }));
+  }, []);
 
   const [showIntro, setShowIntro] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
