@@ -355,6 +355,17 @@ export default function ResultPage() {
               ))}
             </div>
 
+            <div className="mt-8">
+              <a
+                href="https://bizopssuite.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors no-underline"
+              >
+                Explore AI Biz Ops Suite &rarr;
+              </a>
+            </div>
+
             {/* Terracotta rule */}
             <hr className="border-none h-px bg-[#C1603A] mt-10 mb-6" />
 
