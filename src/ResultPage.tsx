@@ -77,7 +77,7 @@ function generateCard(
   canvas.width = w;
   canvas.height = h;
 
-  const espresso = "#3B2A22";
+  const terracotta = "#C1603A";
   const ivory = "#F4F1EA";
   const isWide = w / h > 1.5; // LinkedIn
   const isTall = h / w > 1.2; // Stories / TikTok
@@ -88,7 +88,7 @@ function generateCard(
   const imageH = h - topBarH - bottomBarH;
 
   // ─── Top bar ───
-  ctx.fillStyle = espresso;
+  ctx.fillStyle = terracotta;
   ctx.fillRect(0, 0, w, topBarH);
 
   ctx.fillStyle = ivory;
@@ -138,7 +138,7 @@ function generateCard(
   ctx.drawImage(wristImg, drawX, drawY, drawW, drawH);
 
   // ─── Bottom bar ───
-  ctx.fillStyle = espresso;
+  ctx.fillStyle = terracotta;
   ctx.fillRect(0, h - bottomBarH, w, bottomBarH);
 
   ctx.fillStyle = ivory;
@@ -188,7 +188,7 @@ export default function ResultPage() {
     img.crossOrigin = "anonymous";
     img.onload = () => {
       // Preview always renders at a fixed preview size
-      const previewW = 405;
+      const previewW = 540;
       const previewH = Math.round(previewW * (platform.h / platform.w));
       generateCard(canvas, typeName, img, previewW, previewH);
     };
@@ -412,7 +412,7 @@ export default function ResultPage() {
                 onClick={() => handlePlatformChange(platform)}
                 className={`font-['DM_Sans'] text-xs font-medium px-4 py-2 rounded-full border cursor-pointer transition-all ${
                   selectedPlatform.id === platform.id
-                    ? "bg-[#3B2A22] text-[#FAF7F2] border-[#3B2A22]"
+                    ? "bg-[#C1603A] text-[#FAF7F2] border-[#C1603A]"
                     : "bg-transparent text-[#3B2A22]/60 border-[#3B2A22]/15 hover:border-[#3B2A22]/40"
                 }`}
               >
@@ -422,29 +422,29 @@ export default function ResultPage() {
           </div>
 
           {/* Preview canvas */}
-          <div className="flex justify-center mb-6">
-            <div className="border border-[#3B2A22]/10 rounded-xl overflow-hidden bg-[#F4F1EA]" style={{ maxHeight: 480, maxWidth: selectedPlatform.w / selectedPlatform.h > 1 ? 405 : 270 }}>
-              <canvas
-                ref={previewRef}
-                className="w-full h-auto block"
-              />
-            </div>
+          <div className="border border-[#3B2A22]/10 rounded-xl overflow-hidden bg-[#F4F1EA] mb-5">
+            <canvas
+              ref={previewRef}
+              className="w-full h-auto block"
+            />
           </div>
 
           {/* Hidden full-res canvas for download */}
           <canvas ref={canvasRef} className="hidden" />
 
           {/* Download button */}
-          <button
-            onClick={handleDownloadCard}
-            disabled={generating}
-            className="w-full py-4 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors disabled:opacity-60"
-          >
-            {generating ? "Generating..." : "Download Card"}
-          </button>
-          <p className="font-['DM_Sans'] text-[#3B2A22]/50 text-sm mt-4 text-center">
-            Save and share on Instagram, TikTok, or anywhere you show up.
-          </p>
+          <div className="flex justify-end items-center gap-4">
+            <p className="font-['DM_Sans'] text-[#3B2A22]/50 text-xs m-0">
+              Save and share on Instagram, TikTok, or anywhere you show up.
+            </p>
+            <button
+              onClick={handleDownloadCard}
+              disabled={generating}
+              className="px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors disabled:opacity-60 shrink-0"
+            >
+              {generating ? "Generating..." : "Download Card"}
+            </button>
+          </div>
         </div>
       </section>
 
