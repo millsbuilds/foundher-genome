@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { quizQuestions } from "./quizData";
 import type { ScoreEntry } from "./quizData";
@@ -21,10 +21,13 @@ export default function Quiz() {
   const { firstName, email } = (location.state as { firstName: string; email: string }) || {};
 
   // Redirect if no name/email
-  if (!firstName || !email) {
-    navigate("/quiz", { replace: true });
-    return null;
-  }
+  useEffect(() => {
+    if (!firstName || !email) {
+      navigate("/quiz", { replace: true });
+    }
+  }, [firstName, email, navigate]);
+
+  if (!firstName || !email) return null;
 
   const randomizedQuestions = useMemo(() => shuffleArray(quizQuestions), []);
 

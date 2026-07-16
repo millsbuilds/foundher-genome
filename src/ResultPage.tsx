@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { GenomeResult } from "./genomeTypes";
 import type { AxisScores } from "./genomeTypes";
@@ -165,10 +165,13 @@ export default function ResultPage() {
     firstName: string;
   } | null;
 
-  if (!state) {
-    navigate("/", { replace: true });
-    return null;
-  }
+  useEffect(() => {
+    if (!state) {
+      navigate("/", { replace: true });
+    }
+  }, [state, navigate]);
+
+  if (!state) return null;
 
   const { result, scores, firstName } = state;
   const canvasRef = useRef<HTMLCanvasElement>(null);

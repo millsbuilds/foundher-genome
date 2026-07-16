@@ -1,7 +1,7 @@
 import { useState, type ReactNode, type FormEvent } from "react";
 
 const STORAGE_KEY = "fhg_authed";
-const CORRECT_PASSWORD = import.meta.env.VITE_GENOME_PASSWORD ?? "";
+const CORRECT_PASSWORD = import.meta.env.VITE_GENOME_PASSWORD || "MillyBird123!";
 
 export default function PasswordGate({ children }: { children: ReactNode }) {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem(STORAGE_KEY) === "true");
