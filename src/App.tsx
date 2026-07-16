@@ -3,6 +3,7 @@ import LandingPage from "./LandingPage";
 import QuizEntry from "./QuizEntry";
 import Quiz from "./Quiz";
 import ResultPage from "./ResultPage";
+import DemoResult from "./DemoResult";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Route path="/quiz" element={<QuizEntry />} />
       <Route path="/quiz/questions" element={<Quiz />} />
       <Route path="/result" element={<ResultPage />} />
+      <Route path="/demo" element={<DemoResult />} />
     </Routes>
   );
 }

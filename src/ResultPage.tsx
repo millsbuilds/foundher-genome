@@ -156,14 +156,20 @@ function generateCard(
   ctx.fillText("FOUNDHERDNA.COM", cx, bottomCenterY + urlSize * 1.6);
 }
 
-export default function ResultPage() {
+interface ResultPageProps {
+  demoData?: { result: GenomeResult; scores: AxisScores; firstName: string };
+}
+
+export default function ResultPage({ demoData }: ResultPageProps = {}) {
   const location = useLocation();
   const navigate = useNavigate();
-  const state = location.state as {
+  const routerState = location.state as {
     result: GenomeResult;
     scores: AxisScores;
     firstName: string;
   } | null;
+
+  const state = demoData || routerState;
 
   useEffect(() => {
     if (!state) {
