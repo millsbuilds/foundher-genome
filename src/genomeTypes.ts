@@ -8,7 +8,7 @@ export interface AxisScores {
   tech: { N: number; A: number };
 }
 
-export interface GenomeResult {
+export interface DNAResult {
   code: string; // e.g. "E · I · D · C · N"
   name: string;
   description: string;
@@ -36,7 +36,7 @@ export function calculateScores(answers: ScoreEntry[][]): AxisScores {
   return scores;
 }
 
-export function getGenomeCode(scores: AxisScores): string {
+export function getDNACode(scores: AxisScores): string {
   const vision = scores.vision.E >= scores.vision.P ? "E" : "P";
   const build = scores.build.I >= scores.build.S ? "I" : "S";
   const market = scores.market.D >= scores.market.X ? "D" : "X";
@@ -217,8 +217,8 @@ const anchorTypes: Record<string, AnchorType> = {
   },
 };
 
-export function getGenomeResult(scores: AxisScores): GenomeResult {
-  const code = getGenomeCode(scores);
+export function getDNAResult(scores: AxisScores): DNAResult {
+  const code = getDNACode(scores);
   const rawCode = getRawCode(scores);
   const anchor = anchorTypes[rawCode];
 

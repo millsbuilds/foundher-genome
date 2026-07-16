@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import type { GenomeResult } from "./genomeTypes";
+import type { DNAResult } from "./genomeTypes";
 import type { AxisScores } from "./genomeTypes";
 
 const axisLabels: { key: keyof AxisScores; name: string; poleA: string; codeA: string; poleB: string; codeB: string }[] = [
@@ -157,14 +157,14 @@ function generateCard(
 }
 
 interface ResultPageProps {
-  demoData?: { result: GenomeResult; scores: AxisScores; firstName: string };
+  demoData?: { result: DNAResult; scores: AxisScores; firstName: string };
 }
 
 export default function ResultPage({ demoData }: ResultPageProps = {}) {
   const location = useLocation();
   const navigate = useNavigate();
   const routerState = location.state as {
-    result: GenomeResult;
+    result: DNAResult;
     scores: AxisScores;
     firstName: string;
   } | null;
@@ -484,7 +484,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
           FoundHer DNA is a FoundHer AI product. Built for women founders who build to scale.
         </p>
         <a
-          href="https://foundherai.ai"
+          href="https://foundherai.ai/the-cuff"
           className="font-['DM_Sans'] text-[#C1603A] text-sm no-underline hover:underline"
         >
           Visit FoundHerAI.ai

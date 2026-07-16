@@ -1,5 +1,5 @@
 import ResultPage from "./ResultPage";
-import { getGenomeResult } from "./genomeTypes";
+import { getDNAResult } from "./genomeTypes";
 import type { AxisScores } from "./genomeTypes";
 
 const demoScores: AxisScores = {
@@ -11,7 +11,7 @@ const demoScores: AxisScores = {
 };
 
 const demoData = {
-  result: getGenomeResult(demoScores),
+  result: getDNAResult(demoScores),
   scores: demoScores,
   firstName: "Founder",
 };

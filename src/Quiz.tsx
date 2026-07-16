@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { quizQuestions } from "./quizData";
 import type { ScoreEntry } from "./quizData";
-import { calculateScores, getGenomeResult, getRawCode, getGenomeCode } from "./genomeTypes";
+import { calculateScores, getDNAResult, getRawCode, getDNACode } from "./genomeTypes";
 import type { AxisScores } from "./genomeTypes";
 import { supabase } from "./supabaseClient";
 
@@ -80,9 +80,9 @@ export default function Quiz() {
       setSubmitting(true);
       const finalAnswers = newAnswers as ScoreEntry[][];
       const scores: AxisScores = calculateScores(finalAnswers);
-      const result = getGenomeResult(scores);
+      const result = getDNAResult(scores);
       const rawCode = getRawCode(scores);
-      const genomeCode = getGenomeCode(scores);
+      const dnaCode = getDNACode(scores);
 
       // Save to Supabase
       try {
@@ -90,7 +90,7 @@ export default function Quiz() {
           await supabase.from("genome_results").insert({
             name: firstName,
             email,
-            genome_code: genomeCode,
+            genome_code: dnaCode,
             genome_name: result.name,
           });
         }
@@ -140,7 +140,7 @@ export default function Quiz() {
               Before we begin
             </h2>
             <p className="font-['DM_Sans'] text-[#3B2A22] text-base sm:text-lg leading-relaxed mb-10">
-              For this assessment, focus on one venture. If you're building more than one, you can retake the Genome test for each.
+              For this assessment, focus on one venture. If you're building more than one, you can retake the DNA test for each.
             </p>
             <button
               onClick={() => setShowIntro(false)}

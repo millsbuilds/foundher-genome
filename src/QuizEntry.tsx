@@ -22,7 +22,7 @@ export default function QuizEntry() {
       <div className="flex-1 flex items-center justify-center px-6 py-20">
         <div className="max-w-[480px] w-full text-center">
           <h1 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-3xl sm:text-4xl leading-[1.1] mb-4">
-            Let's discover your Genome.
+            Let's discover your DNA.
           </h1>
           <p className="font-['DM_Sans'] text-[#3B2A22]/70 text-base leading-relaxed mb-10">
             Enter your name and email to begin the test. It takes about 5 minutes.

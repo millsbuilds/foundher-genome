@@ -22,7 +22,7 @@ export default function PasswordGate({ children }: { children: ReactNode }) {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#FAF7F2", padding: 24 }}>
-      <img src="/images/FH_mark_official.png" alt="FoundHer Genome" style={{ width: 80, marginBottom: 32 }} />
+      <img src="/images/FH_mark_official.png" alt="FoundHer DNA" style={{ width: 80, marginBottom: 32 }} />
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, width: "100%", maxWidth: 320 }}>
         <input
           type="password"
