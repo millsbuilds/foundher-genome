@@ -26,7 +26,7 @@ export default function LandingPage() {
             Finally. A tool that gives you your competitive edge.
           </h1>
           <p className="font-['DM_Sans'] text-[#FAF7F2] text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
-            Whether you're building a new business or scaling one you already have — every venture has its own DNA. Discover your business's DNA type.
+            Whether you're just starting out or years in — every founder is wired differently. Discover your founder type.
           </p>
         </div>
       </section>
@@ -35,10 +35,10 @@ export default function LandingPage() {
       <section className="py-20 px-6">
         <div className="max-w-[680px] mx-auto text-center">
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed mb-8">
-            Most founders build by guessing — whether they're just starting out or years in. FoundHer DNA changes that.
+            Most founders build by guessing. FoundHer DNA changes that.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed">
-            Answer just 18 multiple choice questions about how you build, how you think, and how this business is wired — and the DNA test will reveal your business's unique DNA type. This is a coded, multi-dimensional profile that tells you exactly how your venture is built to grow, then assesses which specific AI tools will accelerate its progress, where your natural competitive advantages lie, and how to stop spending time and money on strategies that were never right for your business in the first place.
+            Answer just 18 questions about how you think, how you lead, and how you build — and the FoundHer DNA test will reveal your unique founder type. This is a coded, multi-dimensional profile that tells you exactly how you are wired to grow, which AI tools match the way you work, where your natural competitive advantages lie, and how to stop spending time and money on strategies that were never right for you.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed mt-8">
             No guesswork. No wasted time. No errors in judgment.
@@ -49,7 +49,7 @@ export default function LandingPage() {
       {/* PULL QUOTE */}
       <section className="py-16 px-6">
         <p className="font-['Libre_Baskerville'] italic text-[#C1603A] text-2xl sm:text-3xl md:text-4xl leading-snug text-center max-w-[680px] mx-auto">
-          "Think Myers-Briggs — but built exclusively for women founders, the businesses they start and run in the AI era."
+          "Think Myers-Briggs — but built exclusively for women founders, and the way they think, lead, and build in the AI era."
         </p>
       </section>
 
