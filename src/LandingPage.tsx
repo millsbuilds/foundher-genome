@@ -35,10 +35,10 @@ export default function LandingPage() {
       <section className="py-20 px-6">
         <div className="max-w-[680px] mx-auto text-center">
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed mb-8">
-            Most founders build by guessing. FoundHer DNA changes that.
+            Most founders build by guessing, watching how-to videos, or paying thousands to business gurus. None of it was built for how your business brain works. FoundHer DNA changes that.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed">
-            Answer just 18 questions about how you think, how you lead, and how you build — and the FoundHer DNA test will reveal your unique founder type. This is a coded, multi-dimensional profile that tells you exactly how you are wired to grow, which AI tools match the way you work, where your natural competitive advantages lie, and how to stop spending time and money on strategies that were never right for you.
+            Every question maps to how you build. Our patent-pending scoring model reads your answers across five dimensions and reveals which of 32 founder types you are. You'll see where your natural advantages are, where your blind spots hide, and which AI tools are matched to the way you actually build.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed mt-8">
             No guesswork. No wasted time. No errors in judgment.
