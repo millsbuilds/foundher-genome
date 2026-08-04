@@ -46,15 +46,6 @@ function getAxisResult(axis: keyof AxisScores, scores: AxisScores) {
   return { name: meta.name, dominantCode, dominantLabel, description };
 }
 
-// ─── Skin tone options ───
-const skinTones = [
-  { id: "ivory", label: "Ivory", image: "/images/FH_wrist-ivory.png" },
-  { id: "sienna", label: "Sienna", image: "/images/FH_wrist-sienna.png" },
-  { id: "espresso", label: "Espresso", image: "/images/FH_wrist-espresso.png" },
-  { id: "amber", label: "Amber", image: "/images/FH_wrist-amber.png" },
-  { id: "gold", label: "Gold", image: "/images/FH_wrist-gold.png" },
-];
-
 // ─── Platform dimensions ───
 const platforms = [
   { id: "ig-story", label: "Instagram Story", w: 1080, h: 1920 },
@@ -68,7 +59,7 @@ const platforms = [
 function generateCard(
   canvas: HTMLCanvasElement,
   typeName: string,
-  wristImg: HTMLImageElement,
+  logoImg: HTMLImageElement,
   w: number,
   h: number,
 ): void {
@@ -82,10 +73,11 @@ function generateCard(
   const isWide = w / h > 1.5; // LinkedIn
   const isTall = h / w > 1.2; // Stories / TikTok
 
-  // Layout proportions — top ~1/3, image ~1/2, bottom ~1/6
-  const topBarH = isTall ? h * 0.32 : isWide ? h * 0.40 : h * 0.34;
-  const bottomBarH = isTall ? h * 0.16 : isWide ? h * 0.26 : h * 0.18;
-  const imageH = h - topBarH - bottomBarH;
+  // Layout proportions — adjusted per ratio so the center zone
+  // doesn't look empty now that the photo is replaced by a logo seal.
+  const topBarH = isTall ? h * 0.38 : isWide ? h * 0.40 : h * 0.38;
+  const bottomBarH = isTall ? h * 0.22 : isWide ? h * 0.26 : h * 0.22;
+  const centerH = h - topBarH - bottomBarH;
 
   // ─── Top bar ───
   ctx.fillStyle = ivory;
@@ -120,22 +112,16 @@ function generateCard(
   ctx.fillText("BY THE FOUNDHER", cx, byY);
   ctx.fillText("DNA TEST", cx, byY + bySize * 1.6);
 
-  // ─── Center wrist image (cover fit) ───
-  const imgAspect = wristImg.naturalWidth / wristImg.naturalHeight;
-  const slotAspect = w / imageH;
-  let drawW: number, drawH: number;
+  // ─── Center zone: cream field with centered logo seal ───
+  ctx.fillStyle = ivory;
+  ctx.fillRect(0, topBarH, w, centerH);
 
-  if (imgAspect > slotAspect) {
-    drawH = imageH;
-    drawW = imageH * imgAspect;
-  } else {
-    drawW = w;
-    drawH = w / imgAspect;
-  }
-
-  const drawX = (w - drawW) / 2;
-  const drawY = topBarH + (imageH - drawH) / 2;
-  ctx.drawImage(wristImg, drawX, drawY, drawW, drawH);
+  // Size the logo at ~38% of the center zone's shorter dimension
+  const shortDim = Math.min(w, centerH);
+  const logoSize = shortDim * 0.38;
+  const logoX = cx - logoSize / 2;
+  const logoY = topBarH + (centerH - logoSize) / 2;
+  ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
 
   // ─── Bottom bar ───
   ctx.fillStyle = ivory;
@@ -185,33 +171,28 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
 
   const typeName = result.name.replace(/^(The |DNA Type: )/, "");
 
-  const [selectedTone, setSelectedTone] = useState(skinTones[0]);
   const [selectedPlatform, setSelectedPlatform] = useState(platforms[0]);
   const [generating, setGenerating] = useState(false);
 
-  const renderPreview = (tone: typeof skinTones[0], platform: typeof platforms[0]) => {
+  const logoSrc = "/images/FH_mark_official.png";
+
+  const renderPreview = (platform: typeof platforms[0]) => {
     const canvas = previewRef.current;
     if (!canvas) return;
 
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.onload = () => {
-      // Preview always renders at a fixed preview size
       const previewW = 540;
       const previewH = Math.round(previewW * (platform.h / platform.w));
       generateCard(canvas, typeName, img, previewW, previewH);
     };
-    img.src = tone.image;
-  };
-
-  const handleToneChange = (tone: typeof skinTones[0]) => {
-    setSelectedTone(tone);
-    renderPreview(tone, selectedPlatform);
+    img.src = logoSrc;
   };
 
   const handlePlatformChange = (platform: typeof platforms[0]) => {
     setSelectedPlatform(platform);
-    renderPreview(selectedTone, platform);
+    renderPreview(platform);
   };
 
   const handleDownloadCard = () => {
@@ -229,14 +210,14 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
       link.click();
       setGenerating(false);
     };
-    img.src = selectedTone.image;
+    img.src = logoSrc;
   };
 
   // Render initial preview on mount
   const hasRendered = useRef(false);
   if (!hasRendered.current && typeof window !== "undefined") {
     hasRendered.current = true;
-    setTimeout(() => renderPreview(skinTones[0], platforms[0]), 100);
+    setTimeout(() => renderPreview(platforms[0]), 100);
   }
 
   return (
@@ -371,7 +352,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
               Your DNA report suggests you're wired to scale strategically with AI. The BizOps Suite has identified the exact AI protocols built for your founder type — and they're waiting for you.
             </p>
             <a
-              href="https://bizopssuite.ai"
+              href="https://foundherai.ai/the-cuff"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors no-underline"
@@ -398,30 +379,6 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
           <h3 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-2xl sm:text-3xl text-center mb-8">
             Declare Your Founder DNA to the World
           </h3>
-
-          {/* Skin tone selector */}
-          <p className="font-['DM_Sans'] text-[#3B2A22]/60 text-sm font-medium text-center mb-3">
-            Select your skin tone
-          </p>
-          <div className="flex justify-center gap-3 mb-8">
-            {skinTones.map((tone) => (
-              <button
-                key={tone.id}
-                onClick={() => handleToneChange(tone)}
-                className={`w-[80px] h-[120px] rounded-lg overflow-hidden border-2 cursor-pointer p-0 transition-all ${
-                  selectedTone.id === tone.id
-                    ? "border-[#C1603A] scale-105 shadow-md"
-                    : "border-transparent hover:border-[#3B2A22]/20"
-                }`}
-              >
-                <img
-                  src={tone.image}
-                  alt={tone.label}
-                  className="w-full h-full object-cover"
-                />
-              </button>
-            ))}
-          </div>
 
           {/* Platform selector */}
           <p className="font-['DM_Sans'] text-[#3B2A22]/60 text-sm font-medium text-center mb-3">
