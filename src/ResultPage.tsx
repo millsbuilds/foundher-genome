@@ -68,7 +68,7 @@ function generateCard(
   canvas.width = w;
   canvas.height = h;
 
-  const ivory = "#F4F1EA";
+  const ivory = "#F8F8F6";
   const espresso = "#1C1A17";
   const isWide = w / h > 1.5; // LinkedIn
   const isTall = h / w > 1.2; // Stories / TikTok
@@ -116,9 +116,11 @@ function generateCard(
   ctx.fillStyle = ivory;
   ctx.fillRect(0, topBarH, w, centerH);
 
-  // Size the logo at ~38% of the center zone's shorter dimension
+  // Size the logo at ~70% of the center zone's shorter dimension
+  // For LinkedIn (1.91:1), the center zone is very short — cap at 65% to avoid crowding
   const shortDim = Math.min(w, centerH);
-  const logoSize = shortDim * 0.38;
+  const logoRatio = isWide ? 0.65 : 0.70;
+  const logoSize = shortDim * logoRatio;
   const logoX = cx - logoSize / 2;
   const logoY = topBarH + (centerH - logoSize) / 2;
   ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
@@ -135,8 +137,8 @@ function generateCard(
   const bottomCenterY = h - bottomBarH / 2;
 
   ctx.font = `italic 400 ${ctaSize}px 'Libre Baskerville', serif`;
-  ctx.fillText("Being a founder is in your DNA.", cx, bottomCenterY - ctaSize * 1.8);
-  ctx.fillText("Discover yours. It\u2019s free.", cx, bottomCenterY - ctaSize * 0.2);
+  ctx.fillText("If you\u2019re a founder, find out what type.", cx, bottomCenterY - ctaSize * 1.8);
+  ctx.fillText("Your strengths. Your blind spots. Free.", cx, bottomCenterY - ctaSize * 0.2);
 
   ctx.font = `700 ${urlSize}px 'DM Sans', sans-serif`;
   ctx.fillText("FOUNDHERDNA.COM", cx, bottomCenterY + urlSize * 1.6);
