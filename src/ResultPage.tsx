@@ -68,7 +68,7 @@ function generateCard(
   canvas.width = w;
   canvas.height = h;
 
-  const bg = "#3B2A22";
+  const bg = "#B0552F";
   const text = "#F4F1EA";
   const isWide = w / h > 1.5; // LinkedIn
   const isTall = h / w > 1.2; // Stories / TikTok
@@ -79,9 +79,9 @@ function generateCard(
   const bottomBarH = isTall ? h * 0.22 : isWide ? h * 0.26 : h * 0.22;
   const centerH = h - topBarH - bottomBarH;
 
-  // ─── Top bar ───
+  // ─── Fill entire card with background ───
   ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, w, topBarH);
+  ctx.fillRect(0, 0, w, h);
 
   ctx.fillStyle = text;
   ctx.textAlign = "center";
@@ -112,9 +112,7 @@ function generateCard(
   ctx.fillText("BY THE FOUNDHER", cx, byY);
   ctx.fillText("DNA TEST", cx, byY + bySize * 1.6);
 
-  // ─── Center zone: espresso field with centered logo seal ───
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, topBarH, w, centerH);
+  // ─── Center zone: logo seal ───
 
   // Size the logo at ~70% of the center zone's shorter dimension
   // For LinkedIn (1.91:1), the center zone is very short — cap at 65% to avoid crowding
@@ -130,13 +128,10 @@ function generateCard(
   ctx.fillStyle = "#F4F1EA";
   ctx.font = `500 ${tmSize}px 'DM Sans', sans-serif`;
   ctx.textAlign = "left";
-  ctx.fillText("\u2122", logoX + logoSize, logoY + logoSize - tmSize * 0.5);
+  ctx.fillText("\u2122", logoX + logoSize * 0.97, logoY + logoSize - tmSize * 0.5);
   ctx.textAlign = "center";
 
   // ─── Bottom bar ───
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, h - bottomBarH, w, bottomBarH);
-
   ctx.fillStyle = text;
   ctx.textAlign = "center";
 
@@ -431,7 +426,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
               disabled={generating}
               className="px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors disabled:opacity-60 shrink-0"
             >
-              {generating ? "Generating..." : "Download Card"}
+              {generating ? "Generating..." : "Download to Post"}
             </button>
           </div>
         </div>
