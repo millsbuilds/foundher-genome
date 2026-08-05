@@ -38,10 +38,10 @@ export default function LandingPage() {
             Most founders build by guessing, watching how-to videos, or paying thousands to business gurus. None of it was built for how your business brain works. FoundHer DNA changes that.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed">
-            Every question maps to how you build. Our patent-pending scoring model reads your answers across five dimensions and reveals which of 32 founder types you are. You'll see where your natural advantages are, where your blind spots hide, and which AI tools are matched to the way you actually build.
+            Every question maps to how you build. Our proprietary scoring model reads your answers across five dimensions and reveals which of 36 founder types you are. You'll see where your natural advantages are, where your blind spots hide, and which AI tools are matched to the way you actually build.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed mt-8">
-            No guesswork. No wasted time. No errors in judgment.
+            No guesswork. No wasted time.
           </p>
         </div>
       </section>
