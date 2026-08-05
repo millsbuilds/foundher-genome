@@ -189,9 +189,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
     if (!supabase || !genomeRowId) return;
     try {
       const { error } = await supabase
-        .from("genome_results")
-        .update({ early_adopter: true })
-        .eq("id", genomeRowId);
+        .rpc("mark_early_adopter", { row_id: genomeRowId });
       if (error) throw error;
       setEarlyAdopterChecked(true);
       setEarlyAdopterError("");
