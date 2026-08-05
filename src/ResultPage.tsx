@@ -149,7 +149,7 @@ function generateCard(
 }
 
 interface ResultPageProps {
-  demoData?: { result: DNAResult; scores: AxisScores; firstName: string };
+  demoData?: { result: DNAResult; scores: AxisScores; firstName: string; email?: string; genomeRowId?: string };
 }
 
 export default function ResultPage({ demoData }: ResultPageProps = {}) {
