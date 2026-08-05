@@ -85,17 +85,17 @@ export default function Quiz() {
       const dnaCode = getDNACode(scores);
 
       // Save to Supabase
-      let genomeRowId: string | null = null;
+      const genomeRowId = crypto.randomUUID();
       try {
         if (supabase) {
-          const { data, error } = await supabase.from("genome_results").insert({
+          const { error } = await supabase.from("genome_results").insert({
+            id: genomeRowId,
             name: firstName,
             email,
             genome_code: dnaCode,
             genome_name: result.name,
-          }).select("id").single();
+          });
           if (error) throw error;
-          genomeRowId = data.id;
         }
       } catch (err) {
         console.error("Failed to save genome result:", err);
