@@ -85,17 +85,20 @@ export default function Quiz() {
       const dnaCode = getDNACode(scores);
 
       // Save to Supabase
+      let genomeRowId: string | null = null;
       try {
         if (supabase) {
-          await supabase.from("genome_results").insert({
+          const { data, error } = await supabase.from("genome_results").insert({
             name: firstName,
             email,
             genome_code: dnaCode,
             genome_name: result.name,
-          });
+          }).select("id").single();
+          if (error) throw error;
+          genomeRowId = data.id;
         }
-      } catch {
-        // Continue to results even if save fails
+      } catch (err) {
+        console.error("Failed to save genome result:", err);
       }
 
       navigate("/result", {
@@ -104,6 +107,8 @@ export default function Quiz() {
           scores,
           rawCode,
           firstName,
+          email,
+          genomeRowId,
         },
         replace: true,
       });

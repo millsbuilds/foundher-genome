@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { DNAResult } from "./genomeTypes";
 import type { AxisScores } from "./genomeTypes";
+import { supabase } from "./supabaseClient";
 
 const axisLabels: { key: keyof AxisScores; name: string; poleA: string; codeA: string; poleB: string; codeB: string }[] = [
   { key: "vision", name: "Vision Style", poleA: "Expansive", codeA: "E", poleB: "Precise", codeB: "P" },
@@ -158,6 +159,8 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
     result: DNAResult;
     scores: AxisScores;
     firstName: string;
+    email?: string;
+    genomeRowId?: string;
   } | null;
 
   const state = demoData || routerState;
@@ -170,7 +173,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
 
   if (!state) return null;
 
-  const { result, scores, firstName } = state;
+  const { result, scores, firstName, genomeRowId } = state;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const previewRef = useRef<HTMLCanvasElement>(null);
 
@@ -178,6 +181,24 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
 
   const [selectedPlatform, setSelectedPlatform] = useState(platforms[0]);
   const [generating, setGenerating] = useState(false);
+  const [earlyAdopterChecked, setEarlyAdopterChecked] = useState(false);
+  const [earlyAdopterError, setEarlyAdopterError] = useState("");
+
+  const handleEarlyAdopterToggle = async () => {
+    if (earlyAdopterChecked) return;
+    if (!supabase || !genomeRowId) return;
+    try {
+      const { error } = await supabase
+        .from("genome_results")
+        .update({ early_adopter: true })
+        .eq("id", genomeRowId);
+      if (error) throw error;
+      setEarlyAdopterChecked(true);
+      setEarlyAdopterError("");
+    } catch {
+      setEarlyAdopterError("Something went wrong. Please try again.");
+    }
+  };
 
   const logoSrc = "/images/FH_mark_cream.png";
 
@@ -354,16 +375,34 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
             <hr className="border-none h-px bg-[#C1603A] mt-10 mb-6" />
 
             <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed mb-4">
-              Your DNA report suggests you're wired to scale strategically with AI. The BizOps Suite has identified the exact AI protocols built for your founder type — and they're waiting for you.
+              Founders with your DNA type tend to gain the most from AI in these three areas. The FoundHer Executive Suite is being built around exactly this — agents matched to how you actually work. In development now. Want to be an early adopter?
             </p>
-            <a
-              href="https://foundherai.ai/the-cuff"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors no-underline"
-            >
-              Explore AI Biz Ops Suite &rarr;
-            </a>
+            {genomeRowId && (
+              <>
+                {earlyAdopterChecked ? (
+                  <p className="font-['DM_Sans'] text-[#C1603A] text-sm font-medium">
+                    You're in. We'll be in touch.
+                  </p>
+                ) : (
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      onChange={handleEarlyAdopterToggle}
+                      checked={earlyAdopterChecked}
+                      className="mt-1 w-4 h-4 accent-[#C1603A] cursor-pointer shrink-0"
+                    />
+                    <span className="font-['DM_Sans'] text-[#1C1A17]/80 text-sm leading-relaxed">
+                      Yes — I want early access to the FoundHer Executive Suite.
+                    </span>
+                  </label>
+                )}
+                {earlyAdopterError && (
+                  <p className="font-['DM_Sans'] text-red-600 text-sm mt-2">
+                    {earlyAdopterError}
+                  </p>
+                )}
+              </>
+            )}
           </div>
 
           {/* Download PDF */}
