@@ -91,11 +91,11 @@ function generateCard(
   const s = w / 1080;
 
   // Line 1+2: small italic intro text
-  const introSize = Math.round(48 * s);
+  const introSize = Math.round(42 * s);
   ctx.font = `italic 400 ${introSize}px 'Libre Baskerville', serif`;
   const introY = topBarH * 0.08;
-  ctx.fillText("I\u2019m very proud to announce", cx, introY + introSize);
-  ctx.fillText("that I have been diagnosed as a", cx, introY + introSize * 2.8);
+  ctx.fillText("Finally, a diagnosis I\u2019m proud to carry.", cx, introY + introSize);
+  ctx.fillText("I am a", cx, introY + introSize * 2.8);
 
   // Line 3+4: large bold type name — generous gap from intro
   const typeSize = Math.round((isTall ? 105 : isWide ? 58 : 80) * s);
