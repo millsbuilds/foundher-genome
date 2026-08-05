@@ -68,8 +68,8 @@ function generateCard(
   canvas.width = w;
   canvas.height = h;
 
-  const ivory = "#F8F8F6";
-  const espresso = "#1C1A17";
+  const bg = "#3B2A22";
+  const text = "#F4F1EA";
   const isWide = w / h > 1.5; // LinkedIn
   const isTall = h / w > 1.2; // Stories / TikTok
 
@@ -80,10 +80,10 @@ function generateCard(
   const centerH = h - topBarH - bottomBarH;
 
   // ─── Top bar ───
-  ctx.fillStyle = ivory;
+  ctx.fillStyle = bg;
   ctx.fillRect(0, 0, w, topBarH);
 
-  ctx.fillStyle = espresso;
+  ctx.fillStyle = text;
   ctx.textAlign = "center";
   const cx = w / 2;
 
@@ -112,8 +112,8 @@ function generateCard(
   ctx.fillText("BY THE FOUNDHER", cx, byY);
   ctx.fillText("DNA TEST", cx, byY + bySize * 1.6);
 
-  // ─── Center zone: cream field with centered logo seal ───
-  ctx.fillStyle = ivory;
+  // ─── Center zone: espresso field with centered logo seal ───
+  ctx.fillStyle = bg;
   ctx.fillRect(0, topBarH, w, centerH);
 
   // Size the logo at ~70% of the center zone's shorter dimension
@@ -125,15 +125,23 @@ function generateCard(
   const logoY = topBarH + (centerH - logoSize) / 2;
   ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
 
-  // ─── Bottom bar ───
-  ctx.fillStyle = ivory;
-  ctx.fillRect(0, h - bottomBarH, w, bottomBarH);
-
-  ctx.fillStyle = espresso;
+  // ™ symbol — lower-right of the mark, outside the circle edge
+  const tmSize = Math.round(logoSize * 0.08);
+  ctx.fillStyle = "#F4F1EA";
+  ctx.font = `500 ${tmSize}px 'DM Sans', sans-serif`;
+  ctx.textAlign = "left";
+  ctx.fillText("\u2122", logoX + logoSize, logoY + logoSize - tmSize * 0.5);
   ctx.textAlign = "center";
 
-  const ctaSize = Math.round(26 * s);
-  const urlSize = Math.round(30 * s);
+  // ─── Bottom bar ───
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, h - bottomBarH, w, bottomBarH);
+
+  ctx.fillStyle = text;
+  ctx.textAlign = "center";
+
+  const ctaSize = Math.round(44 * s);
+  const urlSize = Math.round(50 * s);
   const bottomCenterY = h - bottomBarH / 2;
 
   ctx.font = `italic 400 ${ctaSize}px 'Libre Baskerville', serif`;
@@ -176,7 +184,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
   const [selectedPlatform, setSelectedPlatform] = useState(platforms[0]);
   const [generating, setGenerating] = useState(false);
 
-  const logoSrc = "/images/FH_mark_official.png";
+  const logoSrc = "/images/FH_mark_cream.png";
 
   const renderPreview = (platform: typeof platforms[0]) => {
     const canvas = previewRef.current;
