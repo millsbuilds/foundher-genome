@@ -221,14 +221,7 @@ export default function Quiz() {
                         </p>
                       </div>
                     )}
-                    <div className="flex items-start gap-3">
-                      <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-['DM_Sans'] font-medium shrink-0 ${
-                        isSelected
-                          ? "bg-[#C1603A] text-[#FAF7F2]"
-                          : "bg-[#3B2A22]/10 text-[#3B2A22]"
-                      }`}>
-                        {option.label}
-                      </span>
+                    <div>
                       <p className="font-['DM_Sans'] text-[#3B2A22] text-sm leading-relaxed">
                         {option.text}
                       </p>
