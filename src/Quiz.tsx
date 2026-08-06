@@ -145,7 +145,7 @@ export default function Quiz() {
               Before we begin
             </h2>
             <p className="font-['DM_Sans'] text-[#3B2A22] text-base sm:text-lg leading-relaxed mb-10">
-              For this assessment, focus on one venture. If you're building more than one, you can retake the DNA test for each.
+              This is about you, not your venture. If you're building more than one thing, hold one in mind as you answer — it keeps things concrete so we can see how your mind builds.
             </p>
             <button
               onClick={() => setShowIntro(false)}
@@ -208,12 +208,19 @@ export default function Quiz() {
                         : "border-[#3B2A22]/10 hover:border-[#3B2A22]/30"
                     }`}
                   >
-                    {/* Placeholder image area */}
-                    <div className="w-full aspect-[4/3] bg-[#3B2A22]/5 rounded-md mb-4 flex items-center justify-center">
-                      <p className="font-['DM_Sans'] text-[#3B2A22]/40 text-sm text-center px-4 leading-relaxed">
-                        {option.text}
-                      </p>
-                    </div>
+                    {option.image ? (
+                      <img
+                        src={option.image}
+                        alt={option.text}
+                        className="w-full aspect-[4/3] object-cover rounded-md mb-4"
+                      />
+                    ) : (
+                      <div className="w-full aspect-[4/3] bg-[#3B2A22]/5 rounded-md mb-4 flex items-center justify-center">
+                        <p className="font-['DM_Sans'] text-[#3B2A22]/40 text-sm text-center px-4 leading-relaxed">
+                          {option.text}
+                        </p>
+                      </div>
+                    )}
                     <div className="flex items-start gap-3">
                       <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-['DM_Sans'] font-medium shrink-0 ${
                         isSelected

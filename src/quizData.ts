@@ -16,6 +16,7 @@ export interface ScoreEntry {
 export interface QuizOption {
   label: string; // "A", "B", "C", "D"
   text: string;
+  image?: string;
   scores: ScoreEntry[];
 }
 
@@ -438,21 +439,25 @@ export const quizQuestions: QuizQuestion[] = [
       {
         label: "A",
         text: "A woman\u2019s hands on a keyboard, screen reflecting in her glasses, fully absorbed \u2014 technology is her first language",
+        image: "/images/FH_quiz-q1-A.png",
         scores: [{ pole: "N", axis: "tech", points: 3 }],
       },
       {
         label: "B",
         text: "A woman at a sleek desk, AI dashboard open, seamlessly moving between tools and ideas",
+        image: "/images/FH_quiz-q1-B.png",
         scores: [{ pole: "N", axis: "tech", points: 1 }],
       },
       {
         label: "C",
         text: "A woman at a whiteboard, laptop open beside her, using technology to support her thinking",
+        image: "/images/FH_quiz-q1-C.png",
         scores: [{ pole: "A", axis: "tech", points: 1 }],
       },
       {
         label: "D",
         text: "A woman writing in a notebook, phone face down, technology present but not dominant",
+        image: "/images/FH_quiz-q1-D.png",
         scores: [{ pole: "A", axis: "tech", points: 3 }],
       },
     ],
