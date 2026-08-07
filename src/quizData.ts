@@ -353,21 +353,25 @@ export const quizQuestions: QuizQuestion[] = [
       {
         label: "A",
         text: "A dashboard lit up with live metrics, graphs climbing, everything automated and running",
+        image: "/images/FH_quiz-q12-A.png",
         scores: [{ pole: "C", axis: "growth", points: 3 }],
       },
       {
         label: "B",
         text: "An aerial view of a massive, perfectly organized warehouse \u2014 scale you can feel just by looking",
+        image: "/images/FH_quiz-q12-B.png",
         scores: [{ pole: "C", axis: "growth", points: 1 }],
       },
       {
         label: "C",
         text: "A woman speaking to a crowd, every face turned toward her, community forming in real time",
+        image: "/images/FH_quiz-q12-C.png",
         scores: [{ pole: "R", axis: "growth", points: 1 }],
       },
       {
         label: "D",
         text: "Two women deep in conversation over coffee, one leaning in, something important being exchanged",
+        image: "/images/FH_quiz-q12-D.png",
         scores: [{ pole: "R", axis: "growth", points: 3 }],
       },
     ],
