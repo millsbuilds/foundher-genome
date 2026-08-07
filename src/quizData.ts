@@ -366,7 +366,7 @@ export const quizQuestions: QuizQuestion[] = [
       },
       {
         label: "B",
-        text: "An aerial view of a massive, perfectly organized warehouse \u2014 scale you can feel just by looking",
+        text: "An architecture that keeps working no matter how big it gets",
         image: "/images/FH_quiz-q12-B.png",
         scores: [{ pole: "C", axis: "growth", points: 1 }],
       },
