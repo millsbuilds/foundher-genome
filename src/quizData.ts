@@ -181,21 +181,25 @@ export const quizQuestions: QuizQuestion[] = [
       {
         label: "A",
         text: "A painter mid-stroke, no sketch underneath, pure expression on canvas",
+        image: "/images/FH_quiz-q6-A.png",
         scores: [{ pole: "I", axis: "build", points: 3 }],
       },
       {
         label: "B",
         text: "A chef cooking without a recipe, tasting and adjusting as she goes",
+        image: "/images/FH_quiz-q6-B.png",
         scores: [{ pole: "I", axis: "build", points: 1 }],
       },
       {
         label: "C",
         text: "An architect reviewing blueprints with a few handwritten notes in the margins",
+        image: "/images/FH_quiz-q6-C.png",
         scores: [{ pole: "S", axis: "build", points: 1 }],
       },
       {
         label: "D",
         text: "A control room \u2014 every screen lit, every system monitored, everything mapped",
+        image: "/images/FH_quiz-q6-D.png",
         scores: [{ pole: "S", axis: "build", points: 3 }],
       },
     ],
@@ -267,21 +271,25 @@ export const quizQuestions: QuizQuestion[] = [
       {
         label: "A",
         text: "A lone hiker who has gone further down the trail than anyone else \u2014 open sky above, uncharted territory ahead",
+        image: "/images/FH_quiz-q9-C.png",
         scores: [{ pole: "D", axis: "market", points: 3 }],
       },
       {
         label: "B",
         text: "A woman planting a flag in a quiet, unclaimed field",
+        image: "/images/FH_quiz-q9-D.png",
         scores: [{ pole: "D", axis: "market", points: 1 }],
       },
       {
         label: "C",
         text: "A wrecking ball mid-swing, existing structure still standing",
+        image: "/images/FH_quiz-q9-B.png",
         scores: [{ pole: "X", axis: "market", points: 1 }],
       },
       {
         label: "D",
         text: "A controlled demolition \u2014 a building coming down in a perfect planned collapse, something new already drawn in the background",
+        image: "/images/FH_quiz-q9-A.png",
         scores: [{ pole: "X", axis: "market", points: 3 }],
       },
     ],
