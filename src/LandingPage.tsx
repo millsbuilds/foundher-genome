@@ -1,7 +1,11 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { track } from "./lib/analytics";
 
 export default function LandingPage() {
   const navigate = useNavigate();
+
+  useEffect(() => { track("quiz_landing_view"); }, []);
 
   return (
     <div className="min-h-screen bg-[#FAF7F2]">

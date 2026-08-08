@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import type { DNAResult } from "./genomeTypes";
 import type { AxisScores } from "./genomeTypes";
 import { supabase } from "./supabaseClient";
+import { track } from "./lib/analytics";
 
 const axisLabels: { key: keyof AxisScores; name: string; poleA: string; codeA: string; poleB: string; codeB: string }[] = [
   { key: "vision", name: "Vision Style", poleA: "Expansive", codeA: "E", poleB: "Precise", codeB: "P" },
@@ -168,6 +169,8 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
   useEffect(() => {
     if (!state) {
       navigate("/", { replace: true });
+    } else {
+      track("result_view", { genome_name: state.result.name });
     }
   }, [state, navigate]);
 
@@ -232,6 +235,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
       link.download = `foundher-dna-${typeName.toLowerCase()}-${selectedPlatform.id}.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
+      track("share_card_downloaded", { platform: selectedPlatform.id });
       setGenerating(false);
     };
     img.src = logoSrc;

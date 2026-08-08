@@ -1,10 +1,11 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { quizQuestions } from "./quizData";
 import type { ScoreEntry } from "./quizData";
 import { calculateScores, getDNAResult, getRawCode, getDNACode } from "./genomeTypes";
 import type { AxisScores } from "./genomeTypes";
 import { supabase } from "./supabaseClient";
+import { track } from "./lib/analytics";
 
 function shuffleArray<T>(arr: T[]): T[] {
   const shuffled = [...arr];
@@ -44,6 +45,7 @@ export default function Quiz() {
     () => new Array(randomizedQuestions.length).fill(null)
   );
   const [submitting, setSubmitting] = useState(false);
+  const trackedQuestions = useRef<Set<number>>(new Set());
 
   const question = randomizedQuestions[currentIndex];
   const isImagePick = question.type === "image_pick";
@@ -60,6 +62,15 @@ export default function Quiz() {
     const newAnswers = [...answers];
     newAnswers[currentIndex] = question.options[selectedOption].scores;
     setAnswers(newAnswers);
+
+    if (!trackedQuestions.current.has(question.id)) {
+      trackedQuestions.current.add(question.id);
+      track("question_answered", {
+        question_id: question.id,
+        question_type: question.type,
+        question_index: currentIndex + 1,
+      });
+    }
 
     if (currentIndex < totalQuestions - 1) {
       setCurrentIndex(currentIndex + 1);
@@ -100,6 +111,8 @@ export default function Quiz() {
       } catch (err) {
         console.error("Failed to save genome result:", err);
       }
+
+      track("quiz_completed", { genome_name: result.name });
 
       navigate("/result", {
         state: {
@@ -148,7 +161,7 @@ export default function Quiz() {
               This is about you, not your venture. If you're building more than one thing, hold one in mind as you answer — it keeps things concrete so we can see how your mind builds.
             </p>
             <button
-              onClick={() => setShowIntro(false)}
+              onClick={() => { track("quiz_started"); setShowIntro(false); }}
               className="px-10 py-3 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
             >
               Continue

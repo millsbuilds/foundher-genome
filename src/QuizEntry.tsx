@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import { track } from "./lib/analytics";
 
 export default function QuizEntry() {
   const navigate = useNavigate();
+
+  useEffect(() => { track("quiz_entry_view"); }, []);
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
 
