@@ -22,7 +22,7 @@ export default function LandingPage() {
           className="absolute inset-0 w-full h-full object-cover object-[50%_20%]"
         />
         <div className="absolute inset-0 bg-[#3B2A22]/40" />
-        <div className="relative z-10 text-center px-6 max-w-3xl pb-12 sm:pb-16">
+        <div className="relative z-10 text-center px-6 max-w-3xl pb-12 sm:pb-16 md:pb-10">
           <p className="font-['DM_Sans'] font-medium text-[#FAF7F2] text-sm sm:text-base uppercase tracking-[0.2em] mb-4">
             For women founders building in the AI era
           </p>
