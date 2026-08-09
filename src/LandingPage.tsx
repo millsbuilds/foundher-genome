@@ -27,7 +27,7 @@ export default function LandingPage() {
             For women founders building in the AI era
           </p>
           <h1 className="font-['Libre_Baskerville'] font-bold text-[#FAF7F2] text-4xl sm:text-5xl md:text-6xl leading-[1.1] mb-6">
-            <span className="block">Founder?</span>Finally. A tool that gives you your competitive edge.
+            Finally. A tool that gives you your competitive edge.
           </h1>
           <p className="font-['DM_Sans'] text-[#FAF7F2] text-base sm:text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
             Whether you're just starting out or years in — every founder is wired differently. Discover your founder type.
