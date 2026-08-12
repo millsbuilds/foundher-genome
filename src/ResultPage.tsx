@@ -376,9 +376,6 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
             {/* Terracotta rule */}
             <hr className="border-none h-px bg-[#C1603A] mt-10 mb-6" />
 
-            <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed mb-4">
-              Founders with your DNA type tend to gain the most from AI in these three areas.
-            </p>
             {genomeRowId && (
               <>
                 {earlyAdopterChecked ? (
@@ -388,9 +385,6 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
                     </p>
                     <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
                       When the Executive Suite opens, you'll be among the first to see agents configured to {result.code} — your founder code, built to work the way you actually build. We'll send it before anyone else gets to look.
-                    </p>
-                    <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
-                      The FoundHers Club opens soon: free membership, a FoundHer AI newsletter, and events. Open to every woman who's taken the FoundHer DNA quiz.
                     </p>
                   </div>
                 ) : (
@@ -404,6 +398,9 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
                     >
                       Send me an invitation
                     </button>
+                    <p className="font-['DM_Sans'] text-[#1C1A17]/50 text-sm leading-relaxed">
+                      The FoundHers Club opens soon: free membership, a FoundHer AI newsletter, and events. Open to every woman who's taken the FoundHer DNA quiz.
+                    </p>
                   </div>
                 )}
                 {earlyAdopterError && (
