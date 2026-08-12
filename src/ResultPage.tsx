@@ -390,7 +390,10 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
                 ) : (
                   <div className="flex flex-col gap-4">
                     <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
-                      Be among the first founders in the world to look inside an Executive Suite configured to your own DNA code. It's an invitation, not a commitment — see it first.
+                      Be among the first founders in the world to look inside an Executive Suite configured to your own DNA code. It's an invitation, not a commitment — a look at how you can scale your business. See it first.
+                    </p>
+                    <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
+                      Also, as a gift to every woman building something: the FoundHers Club. Free membership, a FoundHer AI newsletter, and events.
                     </p>
                     <button
                       onClick={handleEarlyAdopterToggle}
@@ -398,9 +401,6 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
                     >
                       Send me an invitation
                     </button>
-                    <p className="font-['DM_Sans'] text-[#1C1A17]/50 text-sm leading-relaxed">
-                      The FoundHers Club opens soon: free membership, a FoundHer AI newsletter, and events. Open to every woman who's taken the FoundHer DNA quiz.
-                    </p>
                   </div>
                 )}
                 {earlyAdopterError && (
