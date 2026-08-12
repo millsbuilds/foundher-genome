@@ -42,7 +42,7 @@ export default function LandingPage() {
             Most founders build by guessing, watching how-to videos, or paying thousands to business gurus. None of it was built for how your business brain works. FoundHer DNA changes that.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed">
-            Every question maps to how you build. Our proprietary scoring model reads your answers across five dimensions and reveals which of 36 founder types you are. You'll see where your natural advantages are, where your blind spots hide, and which AI tools are matched to the way you actually build.
+            Every question maps to how you build. Our proprietary scoring model reads your answers across five dimensions and reveals which of 36 founder types you are. You'll see where your natural advantages are, where your blind spots hide, and where AI gives you the most leverage. The FoundHer Executive Suite opens September 10, configured to your exact DNA code.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed mt-8">
             No guesswork. No wasted time.
