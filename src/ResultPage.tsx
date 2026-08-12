@@ -377,29 +377,37 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
             <hr className="border-none h-px bg-[#C1603A] mt-10 mb-6" />
 
             <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed mb-4">
-              Founders with your DNA type tend to gain the most from AI in these three areas. The FoundHer Executive Suite is being built around exactly this — agents matched to how you actually work. In development now. Want to be an early adopter?
+              Founders with your DNA type tend to gain the most from AI in these three areas.
             </p>
             {genomeRowId && (
               <>
                 {earlyAdopterChecked ? (
-                  <p className="font-['DM_Sans'] text-[#C1603A] text-sm font-medium">
-                    You're in. We'll be in touch.
-                  </p>
+                  <div className="flex flex-col gap-4">
+                    <p className="font-['DM_Sans'] text-[#1C1A17] text-base leading-relaxed font-bold">
+                      Your invitation is reserved.
+                    </p>
+                    <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
+                      When the Executive Suite opens, you'll be among the first to see agents configured to {result.code} — your founder code, built to work the way you actually build. We'll send it before anyone else gets to look.
+                    </p>
+                    <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
+                      The FoundHers Club opens soon: free membership, a FoundHer AI newsletter, and events. Open to every woman who's taken the FoundHer DNA quiz.
+                    </p>
+                  </div>
                 ) : (
-                  <label className="flex items-start gap-3 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      onChange={handleEarlyAdopterToggle}
-                      checked={earlyAdopterChecked}
-                      className="mt-1 w-4 h-4 accent-[#C1603A] cursor-pointer shrink-0"
-                    />
-                    <span className="font-['DM_Sans'] text-[#1C1A17]/80 text-sm leading-relaxed">
-                      Yes — I want early access to the FoundHer Executive Suite.
-                    </span>
-                  </label>
+                  <div className="flex flex-col gap-4">
+                    <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
+                      Be among the first founders in the world to look inside an Executive Suite configured to your own DNA code. It's an invitation, not a commitment — see it first.
+                    </p>
+                    <button
+                      onClick={handleEarlyAdopterToggle}
+                      className="self-start px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
+                    >
+                      Send me an invitation
+                    </button>
+                  </div>
                 )}
                 {earlyAdopterError && (
-                  <p className="font-['DM_Sans'] text-red-600 text-sm mt-2">
+                  <p className="font-['DM_Sans'] text-red-600 text-base mt-2">
                     {earlyAdopterError}
                   </p>
                 )}
