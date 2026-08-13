@@ -95,21 +95,25 @@ export const quizQuestions: QuizQuestion[] = [
       {
         label: "A",
         text: "Wide aerial landscape, open horizon, multiple paths visible",
+        image: "/images/FH_quiz-q3-A.jpg",
         scores: [{ pole: "E", axis: "vision", points: 3 }],
       },
       {
         label: "B",
         text: "A city being built from above \u2014 structured but expansive",
+        image: "/images/FH_quiz-q3-B.jpg",
         scores: [{ pole: "E", axis: "vision", points: 1 }],
       },
       {
         label: "C",
         text: "A single well-worn path through a forest, clear destination ahead",
+        image: "/images/FH_quiz-q3-C.jpg",
         scores: [{ pole: "P", axis: "vision", points: 1 }],
       },
       {
         label: "D",
         text: "A single door, perfectly framed, sharp focus",
+        image: "/images/FH_quiz-q3-D.jpg",
         scores: [{ pole: "P", axis: "vision", points: 3 }],
       },
     ],
