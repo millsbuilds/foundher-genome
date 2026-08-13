@@ -1,42 +1,79 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const KIT_API = "https://api.kit.com/v4";
-const TAG_NAME = "quiz-complete";
 
-serve(async (req) => {
-  const apiSecret = Deno.env.get("KIT_API_SECRET");
-  if (!apiSecret) {
-    console.error("KIT_API_SECRET is not set");
-    return new Response(JSON.stringify({ error: "Server misconfigured" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
+const json = (data: unknown, status = 200) =>
+  new Response(JSON.stringify(data), {
+    status,
+    headers: { "Content-Type": "application/json" },
+  });
 
-  let body: unknown;
-  try {
-    body = await req.json();
-  } catch {
-    return new Response(JSON.stringify({ error: "Invalid JSON" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-
-  const { record } = body as { record?: Record<string, unknown> };
-  if (!record?.email || !record?.name) {
-    return new Response(
-      JSON.stringify({ error: "Malformed payload: missing record.email or record.name" }),
-      { status: 400, headers: { "Content-Type": "application/json" } },
+async function findTagId(
+  tagName: string,
+  headers: Record<string, string>,
+): Promise<number | null> {
+  let cursor: string | null = null;
+  do {
+    const url = cursor
+      ? `${KIT_API}/tags?per_page=100&after=${cursor}`
+      : `${KIT_API}/tags?per_page=100`;
+    const res = await fetch(url, { headers });
+    if (!res.ok) {
+      const text = await res.text();
+      console.error(`Kit list tags failed (${res.status}): ${text}`);
+      return null;
+    }
+    const data = await res.json();
+    const match = data.tags?.find(
+      (t: { name: string; id: number }) => t.name === tagName,
     );
+    if (match) return match.id;
+    cursor = data.pagination?.has_next_page ? data.pagination.end_cursor : null;
+  } while (cursor);
+  return null;
+}
+
+async function findSubscriberByEmail(
+  email: string,
+  headers: Record<string, string>,
+): Promise<number | null> {
+  const res = await fetch(
+    `${KIT_API}/subscribers?email_address=${encodeURIComponent(email)}`,
+    { headers },
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error(`Kit find subscriber failed (${res.status}): ${text}`);
+    return null;
   }
+  const data = await res.json();
+  return data.subscribers?.[0]?.id ?? null;
+}
 
-  const headers = {
-    "Content-Type": "application/json",
-    "X-Kit-Api-Key": apiSecret,
-  };
+async function tagSubscriber(
+  tagId: number,
+  subscriberId: number,
+  tagName: string,
+  headers: Record<string, string>,
+): Promise<boolean> {
+  const res = await fetch(
+    `${KIT_API}/tags/${tagId}/subscribers/${subscriberId}`,
+    { method: "POST", headers, body: JSON.stringify({}) },
+  );
+  if (!res.ok) {
+    const text = await res.text();
+    console.error(`Kit tag subscriber failed (${res.status}): ${text}`);
+    return false;
+  }
+  console.log(`Tagged subscriber ${subscriberId} with "${tagName}"`);
+  return true;
+}
 
-  // ── Step 1: Create or update subscriber ──
+// ── INSERT handler: create subscriber, set fields, tag quiz-complete ──
+async function handleInsert(
+  record: Record<string, unknown>,
+  headers: Record<string, string>,
+): Promise<Response> {
   let subscriberId: number | null = null;
   try {
     const res = await fetch(`${KIT_API}/subscribers`, {
@@ -56,10 +93,7 @@ serve(async (req) => {
     if (!res.ok) {
       const text = await res.text();
       console.error(`Kit create subscriber failed (${res.status}): ${text}`);
-      return new Response(JSON.stringify({ ok: false, step: "create_subscriber" }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      });
+      return json({ ok: false, step: "create_subscriber" });
     }
 
     const data = await res.json();
@@ -67,81 +101,92 @@ serve(async (req) => {
     console.log(`Subscriber synced: ${record.email} (id: ${subscriberId})`);
   } catch (err) {
     console.error("Kit create subscriber error:", err);
-    return new Response(JSON.stringify({ ok: false, step: "create_subscriber" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return json({ ok: false, step: "create_subscriber" });
   }
 
   if (!subscriberId) {
     console.error("No subscriber ID returned from Kit");
-    return new Response(JSON.stringify({ ok: false, step: "no_subscriber_id" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    return json({ ok: false, step: "no_subscriber_id" });
   }
 
-  // ── Step 2: Find tag ID by name ──
-  let tagId: number | null = null;
-  try {
-    let cursor: string | null = null;
-    do {
-      const url = cursor
-        ? `${KIT_API}/tags?per_page=100&after=${cursor}`
-        : `${KIT_API}/tags?per_page=100`;
-      const res = await fetch(url, { headers });
-      if (!res.ok) {
-        const text = await res.text();
-        console.error(`Kit list tags failed (${res.status}): ${text}`);
-        break;
-      }
-      const data = await res.json();
-      const match = data.tags?.find(
-        (t: { name: string; id: number }) => t.name === TAG_NAME,
-      );
-      if (match) {
-        tagId = match.id;
-        break;
-      }
-      cursor = data.pagination?.has_next_page ? data.pagination.end_cursor : null;
-    } while (cursor);
-  } catch (err) {
-    console.error("Kit list tags error:", err);
-  }
-
+  const tagId = await findTagId("quiz-complete", headers);
   if (!tagId) {
-    console.error(`Tag "${TAG_NAME}" not found in Kit`);
-    return new Response(JSON.stringify({ ok: false, step: "tag_not_found" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    console.error('Tag "quiz-complete" not found in Kit');
+    return json({ ok: false, step: "tag_not_found" });
   }
 
-  // ── Step 3: Tag the subscriber ──
+  const tagged = await tagSubscriber(tagId, subscriberId, "quiz-complete", headers);
+  if (!tagged) return json({ ok: false, step: "tag_subscriber" });
+
+  return json({ ok: true });
+}
+
+// ── UPDATE handler: tag early-adopter when flag flips to true ──
+async function handleUpdate(
+  record: Record<string, unknown>,
+  oldRecord: Record<string, unknown>,
+  headers: Record<string, string>,
+): Promise<Response> {
+  if (record.early_adopter !== true || oldRecord.early_adopter === true) {
+    return json({ ok: true, skipped: "early_adopter not changed to true" });
+  }
+
+  const email = record.email as string;
+  if (!email) {
+    console.error("UPDATE payload missing record.email");
+    return json({ ok: false, step: "missing_email" });
+  }
+
+  const subscriberId = await findSubscriberByEmail(email, headers);
+  if (!subscriberId) {
+    console.error(`Subscriber not found in Kit for ${email}`);
+    return json({ ok: false, step: "subscriber_not_found" });
+  }
+
+  const tagId = await findTagId("early-adopter", headers);
+  if (!tagId) {
+    console.error('Tag "early-adopter" not found in Kit');
+    return json({ ok: false, step: "tag_not_found" });
+  }
+
+  const tagged = await tagSubscriber(tagId, subscriberId, "early-adopter", headers);
+  if (!tagged) return json({ ok: false, step: "tag_subscriber" });
+
+  return json({ ok: true });
+}
+
+serve(async (req) => {
+  const apiSecret = Deno.env.get("KIT_API_SECRET");
+  if (!apiSecret) {
+    console.error("KIT_API_SECRET is not set");
+    return json({ error: "Server misconfigured" });
+  }
+
+  let body: unknown;
   try {
-    const res = await fetch(
-      `${KIT_API}/tags/${tagId}/subscribers/${subscriberId}`,
-      { method: "POST", headers, body: JSON.stringify({}) },
-    );
-    if (!res.ok) {
-      const text = await res.text();
-      console.error(`Kit tag subscriber failed (${res.status}): ${text}`);
-      return new Response(JSON.stringify({ ok: false, step: "tag_subscriber" }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-    console.log(`Tagged subscriber ${subscriberId} with "${TAG_NAME}"`);
-  } catch (err) {
-    console.error("Kit tag subscriber error:", err);
-    return new Response(JSON.stringify({ ok: false, step: "tag_subscriber" }), {
-      status: 200,
-      headers: { "Content-Type": "application/json" },
-    });
+    body = await req.json();
+  } catch {
+    return json({ error: "Invalid JSON" }, 400);
   }
 
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  const { type, record, old_record } = body as {
+    type?: string;
+    record?: Record<string, unknown>;
+    old_record?: Record<string, unknown>;
+  };
+
+  if (!record?.email || !record?.name) {
+    return json({ error: "Malformed payload: missing record.email or record.name" }, 400);
+  }
+
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Kit-Api-Key": apiSecret,
+  };
+
+  if (type === "UPDATE" && old_record) {
+    return handleUpdate(record, old_record, headers);
+  }
+
+  return handleInsert(record, headers);
 });
