@@ -265,10 +265,13 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
             The uniform of the unstoppable.
           </h3>
           <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed text-center mb-4">
-            There's one more thing. The Cuff is the physical mark of a FoundHer — gold-plated brass, hard enamel, engraved on the inside. Worn by women who are building something. Everyone who knows, knows.
+            There's one more thing. The FoundHer Cuff is the physical mark of a FoundHer — a way for founders to recognize each other across a room. Gold-plated brass, hard enamel. Worn by women who are building something.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed text-center mb-8">
             It isn't ready yet. We're still in production. Put your name down and we'll tell you more when we know more.
+          </p>
+          <p className="font-['Libre_Baskerville'] italic text-[#3B2A22] text-lg sm:text-xl text-center mt-4 mb-10">
+            Everyone who knows, knows.
           </p>
           {cuffSubmitted ? (
             <p className="font-['DM_Sans'] text-[#1C1A17] text-base leading-relaxed font-bold text-center">
