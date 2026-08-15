@@ -257,7 +257,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
       <section className="py-16 px-6 print:hidden">
         <div className="max-w-[680px] mx-auto">
           <img
-            src="/images/FH_social-with-orange-cuff.png"
+            src="/images/FH_social-with-orange-cuff.jpg"
             alt="The Cuff"
             className="w-full rounded-xl mb-10"
           />
