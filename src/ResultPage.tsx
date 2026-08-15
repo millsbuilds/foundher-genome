@@ -1,9 +1,12 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import type { FormEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { DNAResult } from "./genomeTypes";
 import type { AxisScores } from "./genomeTypes";
 import { supabase } from "./supabaseClient";
 import { track } from "./lib/analytics";
+
+const MERCH_URL = "";
 
 const axisLabels: { key: keyof AxisScores; name: string; poleA: string; codeA: string; poleB: string; codeB: string }[] = [
   { key: "vision", name: "Vision Style", poleA: "Expansive", codeA: "E", poleB: "Precise", codeB: "P" },
@@ -48,107 +51,6 @@ function getAxisResult(axis: keyof AxisScores, scores: AxisScores) {
   return { name: meta.name, dominantCode, dominantLabel, description };
 }
 
-// ─── Platform dimensions ───
-const platforms = [
-  { id: "ig-story", label: "Instagram Story", w: 1080, h: 1920 },
-  { id: "ig-feed", label: "Instagram Feed", w: 1080, h: 1080 },
-  { id: "tiktok", label: "TikTok", w: 1080, h: 1920 },
-  { id: "facebook", label: "Facebook", w: 1080, h: 1080 },
-  { id: "linkedin", label: "LinkedIn", w: 1200, h: 628 },
-];
-
-// ─── Canvas card generator ───
-function generateCard(
-  canvas: HTMLCanvasElement,
-  typeName: string,
-  logoImg: HTMLImageElement,
-  w: number,
-  h: number,
-): void {
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return;
-  canvas.width = w;
-  canvas.height = h;
-
-  const bg = "#B0552F";
-  const text = "#F4F1EA";
-  const isWide = w / h > 1.5; // LinkedIn
-  const isTall = h / w > 1.2; // Stories / TikTok
-
-  // Layout proportions — adjusted per ratio so the center zone
-  // doesn't look empty now that the photo is replaced by a logo seal.
-  const topBarH = isTall ? h * 0.38 : isWide ? h * 0.40 : h * 0.38;
-  const bottomBarH = isTall ? h * 0.22 : isWide ? h * 0.26 : h * 0.22;
-  const centerH = h - topBarH - bottomBarH;
-
-  // ─── Fill entire card with background ───
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, w, h);
-
-  ctx.fillStyle = text;
-  ctx.textAlign = "center";
-  const cx = w / 2;
-
-  // Scale factor based on canvas width
-  const s = w / 1080;
-
-  // Line 1+2: small italic intro text
-  const introSize = Math.round(42 * s);
-  ctx.font = `italic 400 ${introSize}px 'Libre Baskerville', serif`;
-  const introY = topBarH * 0.08;
-  ctx.fillText("Finally, a diagnosis I\u2019m proud to carry.", cx, introY + introSize);
-  ctx.fillText("I am a", cx, introY + introSize * 2.8);
-
-  // Line 3+4: large bold type name — generous gap from intro
-  const typeSize = Math.round((isTall ? 105 : isWide ? 58 : 80) * s);
-  ctx.font = `700 ${typeSize}px 'Libre Baskerville', serif`;
-  const typeStartY = introY + introSize * 2.8 + typeSize * 1.15;
-  const typeWord = typeName.toUpperCase();
-  ctx.fillText(typeWord, cx, typeStartY);
-  ctx.fillText("FOUNDER", cx, typeStartY + typeSize * 1.15);
-
-  // Line 5: small caps "BY THE FOUNDHER DNA TEST" — generous gap from type name
-  const bySize = Math.round(48 * s);
-  ctx.font = `500 ${bySize}px 'DM Sans', sans-serif`;
-  const byY = typeStartY + typeSize * 1.15 + bySize * 2.2;
-  ctx.fillText("BY THE FOUNDHER", cx, byY);
-  ctx.fillText("DNA TEST", cx, byY + bySize * 1.6);
-
-  // ─── Center zone: logo seal ───
-
-  // Size the logo at ~70% of the center zone's shorter dimension
-  // For LinkedIn (1.91:1), the center zone is very short — cap at 65% to avoid crowding
-  const shortDim = Math.min(w, centerH);
-  const logoRatio = isWide ? 0.65 : 0.70;
-  const logoSize = shortDim * logoRatio;
-  const logoX = cx - logoSize / 2;
-  const logoY = topBarH + (centerH - logoSize) / 2;
-  ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
-
-  // ™ symbol — lower-right of the mark, outside the circle edge
-  const tmSize = Math.round(logoSize * 0.08);
-  ctx.fillStyle = "#F4F1EA";
-  ctx.font = `500 ${tmSize}px 'DM Sans', sans-serif`;
-  ctx.textAlign = "left";
-  ctx.fillText("\u2122", logoX + logoSize * 0.97, logoY + logoSize - tmSize * 0.5);
-  ctx.textAlign = "center";
-
-  // ─── Bottom bar ───
-  ctx.fillStyle = text;
-  ctx.textAlign = "center";
-
-  const ctaSize = Math.round(44 * s);
-  const urlSize = Math.round(50 * s);
-  const bottomCenterY = h - bottomBarH / 2;
-
-  ctx.font = `italic 400 ${ctaSize}px 'Libre Baskerville', serif`;
-  ctx.fillText("If you\u2019re a founder, find out what type.", cx, bottomCenterY - ctaSize * 1.8);
-  ctx.fillText("Your strengths. Your blind spots. Free.", cx, bottomCenterY - ctaSize * 0.2);
-
-  ctx.font = `700 ${urlSize}px 'DM Sans', sans-serif`;
-  ctx.fillText("FOUNDHERDNA.COM", cx, bottomCenterY + urlSize * 1.6);
-}
-
 interface ResultPageProps {
   demoData?: { result: DNAResult; scores: AxisScores; firstName: string; email?: string; genomeRowId?: string };
 }
@@ -176,77 +78,29 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
 
   if (!state) return null;
 
-  const { result, scores, firstName, genomeRowId } = state;
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const previewRef = useRef<HTMLCanvasElement>(null);
+  const { result, scores, firstName } = state;
+  const [cuffEmail, setCuffEmail] = useState("");
+  const [cuffSubmitted, setCuffSubmitted] = useState(false);
+  const [cuffError, setCuffError] = useState("");
 
-  const typeName = result.name.replace(/^(The |DNA Type: )/, "");
-
-  const [selectedPlatform, setSelectedPlatform] = useState(platforms[0]);
-  const [generating, setGenerating] = useState(false);
-  const [earlyAdopterChecked, setEarlyAdopterChecked] = useState(false);
-  const [earlyAdopterError, setEarlyAdopterError] = useState("");
-
-  const handleEarlyAdopterToggle = async () => {
-    if (earlyAdopterChecked) return;
-    if (!supabase || !genomeRowId) return;
+  const handleCuffSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!supabase || !cuffEmail) return;
+    setCuffError("");
     try {
-      const { error } = await supabase
-        .rpc("mark_early_adopter", { row_id: genomeRowId });
-      if (error) throw error;
-      setEarlyAdopterChecked(true);
-      setEarlyAdopterError("");
+      const { data, error } = await supabase.functions.invoke("sync-to-kit", {
+        body: { type: "TAG", record: { email: cuffEmail, name: firstName }, tag: "cuff-interest" },
+      });
+      if (error || data?.ok === false) {
+        setCuffError("Something went wrong. Please try again.");
+        return;
+      }
+      setCuffSubmitted(true);
+      track("cuff_waitlist_submitted");
     } catch {
-      setEarlyAdopterError("Something went wrong. Please try again.");
+      setCuffError("Something went wrong. Please try again.");
     }
   };
-
-  const logoSrc = "/images/FH_mark_cream.png";
-
-  const renderPreview = (platform: typeof platforms[0]) => {
-    const canvas = previewRef.current;
-    if (!canvas) return;
-
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
-      const previewW = 540;
-      const previewH = Math.round(previewW * (platform.h / platform.w));
-      generateCard(canvas, typeName, img, previewW, previewH);
-    };
-    img.src = logoSrc;
-  };
-
-  const handlePlatformChange = (platform: typeof platforms[0]) => {
-    setSelectedPlatform(platform);
-    renderPreview(platform);
-  };
-
-  const handleDownloadCard = () => {
-    setGenerating(true);
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
-      generateCard(canvas, typeName, img, selectedPlatform.w, selectedPlatform.h);
-      const link = document.createElement("a");
-      link.download = `foundher-dna-${typeName.toLowerCase()}-${selectedPlatform.id}.png`;
-      link.href = canvas.toDataURL("image/png");
-      link.click();
-      track("share_card_downloaded", { platform: selectedPlatform.id });
-      setGenerating(false);
-    };
-    img.src = logoSrc;
-  };
-
-  // Render initial preview on mount
-  const hasRendered = useRef(false);
-  if (!hasRendered.current && typeof window !== "undefined") {
-    hasRendered.current = true;
-    setTimeout(() => renderPreview(platforms[0]), 100);
-  }
 
   return (
     <div className="min-h-screen bg-[#FAF7F2]">
@@ -373,46 +227,6 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
               ))}
             </div>
 
-            {/* Terracotta rule */}
-            <hr className="border-none h-px bg-[#C1603A] mt-10 mb-6" />
-
-            {genomeRowId && (
-              <>
-                {earlyAdopterChecked ? (
-                  <div className="flex flex-col gap-4">
-                    <p className="font-['DM_Sans'] text-[#1C1A17] text-base leading-relaxed font-bold">
-                      Your spot is saved.
-                    </p>
-                    <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
-                      When the Executive Suite opens September 28, you'll be among the first inside — with agents configured to {result.code}, your founder code. We'll email you the day it opens.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-4">
-                    <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
-                      Be among the first founders in the world inside an Executive Suite configured to your own DNA code. Agents that build on your natural advantages and cover your blind spots — matched to how you actually work. Opening September 28.
-                    </p>
-                    <h3 className="font-['Libre_Baskerville'] font-bold text-[#1C1A17] text-xl leading-snug">
-                      You're already in.
-                    </h3>
-                    <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
-                      Every woman who takes the FoundHer DNA test belongs to the FoundHers Club. Free, always. Membership includes the Letter from the Build and FoundHer stories from women building right now. The FoundHers Club and the Executive Suite open September 28.
-                    </p>
-                    <button
-                      onClick={handleEarlyAdopterToggle}
-                      className="self-start px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
-                    >
-                      Save my spot
-                    </button>
-                  </div>
-                )}
-                {earlyAdopterError && (
-                  <p className="font-['DM_Sans'] text-red-600 text-base mt-2">
-                    {earlyAdopterError}
-                  </p>
-                )}
-              </>
-            )}
           </div>
 
           {/* Download PDF */}
@@ -427,57 +241,84 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
         </div>
       </section>
 
-      {/* ─── Share Your Result ─── */}
+      {/* ─── The Club ─── */}
       <section className="py-16 px-6 print:hidden">
-        <div className="max-w-[540px] mx-auto">
-          <h3 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-2xl sm:text-3xl text-center mb-8">
-            Declare Your Founder DNA to the World
+        <div className="max-w-[680px] mx-auto">
+          <h3 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-xl sm:text-2xl text-center mb-8">
+            Welcome to the Club.
           </h3>
-
-          {/* Platform selector */}
-          <p className="font-['DM_Sans'] text-[#3B2A22]/60 text-sm font-medium text-center mb-3">
-            Select platform
+          <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed text-center">
+            You just found out how you're wired to build. That makes you a FoundHer — and it makes you a member. The FoundHers Club is free, and you're already in. Letter from the Build, events, and the women building alongside you.
           </p>
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {platforms.map((platform) => (
-              <button
-                key={platform.id}
-                onClick={() => handlePlatformChange(platform)}
-                className={`font-['DM_Sans'] text-xs font-medium px-4 py-2 rounded-full border cursor-pointer transition-all ${
-                  selectedPlatform.id === platform.id
-                    ? "bg-[#C1603A] text-[#FAF7F2] border-[#C1603A]"
-                    : "bg-transparent text-[#3B2A22]/60 border-[#3B2A22]/15 hover:border-[#3B2A22]/40"
-                }`}
-              >
-                {platform.label}
-              </button>
-            ))}
-          </div>
+        </div>
+      </section>
 
-          {/* Preview canvas */}
-          <div className="border border-[#3B2A22]/10 rounded-xl overflow-hidden bg-[#F4F1EA] mb-5">
-            <canvas
-              ref={previewRef}
-              className="w-full h-auto block"
-            />
-          </div>
-
-          {/* Hidden full-res canvas for download */}
-          <canvas ref={canvasRef} className="hidden" />
-
-          {/* Download button */}
-          <div className="flex justify-end items-center gap-4">
-            <p className="font-['DM_Sans'] text-[#3B2A22]/50 text-xs m-0">
-              Save and share on Instagram, TikTok, or anywhere you show up.
+      {/* ─── The Cuff ─── */}
+      <section className="py-16 px-6 print:hidden">
+        <div className="max-w-[680px] mx-auto">
+          <img
+            src="/images/FH_social-with-orange-cuff.png"
+            alt="The Cuff"
+            className="w-full rounded-xl mb-10"
+          />
+          <h3 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-xl sm:text-2xl text-center mb-8">
+            The uniform of the unstoppable.
+          </h3>
+          <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed text-center mb-4">
+            There's one more thing. The Cuff is the physical mark of a FoundHer — gold-plated brass, hard enamel, engraved on the inside. Worn by women who are building something. Everyone who knows, knows.
+          </p>
+          <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed text-center mb-8">
+            It isn't ready yet. We're still in production. Put your name down and we'll tell you more when we know more.
+          </p>
+          {cuffSubmitted ? (
+            <p className="font-['DM_Sans'] text-[#1C1A17] text-base leading-relaxed font-bold text-center">
+              You're on the list.
             </p>
-            <button
-              onClick={handleDownloadCard}
-              disabled={generating}
-              className="px-6 py-2.5 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-sm rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors disabled:opacity-60 shrink-0"
+          ) : (
+            <form onSubmit={handleCuffSubmit} className="flex flex-col items-center gap-4 max-w-[480px] mx-auto">
+              <input
+                type="email"
+                placeholder="Email Address"
+                value={cuffEmail}
+                onChange={(e) => setCuffEmail(e.target.value)}
+                required
+                className="w-full px-4 py-3 border border-[#3B2A22]/20 bg-white text-[#3B2A22] text-base font-['DM_Sans'] rounded outline-none focus:border-[#C1603A]"
+              />
+              <button
+                type="submit"
+                className="w-full py-3 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
+              >
+                Put me on the waitlist
+              </button>
+              <p className="font-['DM_Sans'] text-[#3B2A22]/50 text-sm">
+                No card. No deposit. No obligation.
+              </p>
+            </form>
+          )}
+          {cuffError && (
+            <p className="font-['DM_Sans'] text-red-600 text-base mt-2 text-center">
+              {cuffError}
+            </p>
+          )}
+        </div>
+      </section>
+
+      {/* ─── More Coming ─── */}
+      <section className="py-16 px-6 print:hidden">
+        <div className="max-w-[680px] mx-auto text-center">
+          <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed">
+            More is coming for founders with your DNA.
+          </p>
+          {MERCH_URL && (
+            <a
+              href={MERCH_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-['DM_Sans'] text-[#C1603A] text-base no-underline hover:underline mt-4 inline-block"
             >
-              {generating ? "Generating..." : "Download to Post"}
-            </button>
-          </div>
+              Shop FoundHer
+            </a>
+          )}
         </div>
       </section>
 

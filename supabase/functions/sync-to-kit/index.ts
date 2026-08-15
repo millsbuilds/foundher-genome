@@ -69,6 +69,53 @@ async function tagSubscriber(
   return true;
 }
 
+// ── TAG handler: find-or-create subscriber, apply arbitrary tag ──
+async function handleTagRequest(
+  record: Record<string, unknown>,
+  tagName: string,
+  headers: Record<string, string>,
+): Promise<Response> {
+  const email = record.email as string;
+  if (!email) {
+    return json({ ok: false, step: "missing_email" }, 400);
+  }
+
+  let subscriberId = await findSubscriberByEmail(email, headers);
+  if (!subscriberId) {
+    const res = await fetch(`${KIT_API}/subscribers`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        email_address: email,
+        first_name: (record.name as string) ?? "",
+        state: "active",
+      }),
+    });
+    if (!res.ok) {
+      const text = await res.text();
+      console.error(`Kit create subscriber failed (${res.status}): ${text}`);
+      return json({ ok: false, step: "create_subscriber" });
+    }
+    const data = await res.json();
+    subscriberId = data.subscriber?.id ?? null;
+  }
+
+  if (!subscriberId) {
+    return json({ ok: false, step: "no_subscriber_id" });
+  }
+
+  const tagId = await findTagId(tagName, headers);
+  if (!tagId) {
+    console.error(`Tag "${tagName}" not found in Kit`);
+    return json({ ok: false, step: "tag_not_found" });
+  }
+
+  const tagged = await tagSubscriber(tagId, subscriberId, tagName, headers);
+  if (!tagged) return json({ ok: false, step: "tag_subscriber" });
+
+  return json({ ok: true });
+}
+
 // ── INSERT handler: create subscriber, set fields, tag quiz-complete ──
 async function handleInsert(
   record: Record<string, unknown>,
@@ -169,13 +216,14 @@ serve(async (req) => {
     return json({ error: "Invalid JSON" }, 400);
   }
 
-  const { type, record, old_record } = body as {
+  const { type, record, old_record, tag } = body as {
     type?: string;
     record?: Record<string, unknown>;
     old_record?: Record<string, unknown>;
+    tag?: string;
   };
 
-  if (!record?.email || !record?.name) {
+  if (!record?.email || (type !== "TAG" && !record?.name)) {
     return json({ error: "Malformed payload: missing record.email or record.name" }, 400);
   }
 
@@ -183,6 +231,10 @@ serve(async (req) => {
     "Content-Type": "application/json",
     "X-Kit-Api-Key": apiSecret,
   };
+
+  if (type === "TAG" && tag) {
+    return handleTagRequest(record, tag, headers);
+  }
 
   if (type === "UPDATE" && old_record) {
     return handleUpdate(record, old_record, headers);
