@@ -42,7 +42,7 @@ export default function LandingPage() {
             Most founders build by guessing, watching how-to videos, or paying thousands to business gurus. None of it was built for how your business brain works. FoundHer DNA changes that.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed">
-            Every question maps to how you build. Our proprietary scoring model reads your answers across five dimensions and reveals which of 36 founder types you are. You'll see where your natural advantages are, where your blind spots hide, and where AI gives you the most leverage. The FoundHer Executive Suite opens September 10, configured to your exact DNA code.
+            Every question maps to how you build. Our proprietary scoring model reads your answers across five dimensions and reveals which of 36 founder types you are. You'll see where your natural advantages are, where your blind spots hide, and where AI gives you the most leverage. The FoundHer Executive Suite opens September 28, configured to your exact DNA code.
           </p>
           <p className="font-['DM_Sans'] text-[#3B2A22] text-lg leading-relaxed mt-8">
             No guesswork. No wasted time.
@@ -65,7 +65,7 @@ export default function LandingPage() {
             onClick={() => navigate("/quiz")}
             className="w-full py-3 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
           >
-            Take the Test
+            Take the DNA Test
           </button>
         </div>
       </section>

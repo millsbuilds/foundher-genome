@@ -28,7 +28,7 @@ export default function QuizEntry() {
             Let's discover your DNA.
           </h1>
           <p className="font-['DM_Sans'] text-[#3B2A22]/70 text-base leading-relaxed mb-10">
-            Enter your name and email to begin the test. It takes about 5 minutes.
+            Enter your name and email to begin the DNA test. It takes about 5 minutes.
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -52,7 +52,7 @@ export default function QuizEntry() {
               type="submit"
               className="w-full py-3 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors mt-2"
             >
-              Begin the Test
+              Begin the DNA Test
             </button>
           </form>
         </div>

@@ -384,16 +384,19 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
                       Your spot is saved.
                     </p>
                     <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
-                      When the Executive Suite opens September 10, you'll be among the first inside — with agents configured to {result.code}, your founder code. We'll email you the day it opens.
+                      When the Executive Suite opens September 28, you'll be among the first inside — with agents configured to {result.code}, your founder code. We'll email you the day it opens.
                     </p>
                   </div>
                 ) : (
                   <div className="flex flex-col gap-4">
                     <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
-                      Be among the first founders in the world inside an Executive Suite configured to your own DNA code. Agents that build on your natural advantages and cover your blind spots — matched to how you actually work. Opening September 10.
+                      Be among the first founders in the world inside an Executive Suite configured to your own DNA code. Agents that build on your natural advantages and cover your blind spots — matched to how you actually work. Opening September 28.
                     </p>
+                    <h3 className="font-['Libre_Baskerville'] font-bold text-[#1C1A17] text-xl leading-snug">
+                      You're already in.
+                    </h3>
                     <p className="font-['DM_Sans'] text-[#1C1A17]/80 text-base leading-relaxed">
-                      And, as a gift to every woman building something: the FoundHers Club. Free membership, a FoundHer AI newsletter, and events.
+                      Every woman who takes the FoundHer DNA test belongs to the FoundHers Club. Free, always. Membership includes the Letter from the Build and FoundHer stories from women building right now. The FoundHers Club and the Executive Suite open September 28.
                     </p>
                     <button
                       onClick={handleEarlyAdopterToggle}
@@ -492,7 +495,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
           FoundHer DNA is a FoundHer AI product. Built for women founders who build to scale.
         </p>
         <a
-          href="https://foundherai.ai/the-cuff"
+          href="https://foundherai.ai"
           className="font-['DM_Sans'] text-[#C1603A] text-sm no-underline hover:underline"
         >
           Visit FoundHerAI.ai
