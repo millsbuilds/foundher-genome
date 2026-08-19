@@ -1,58 +1,14 @@
 import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import type { DNAResult } from "./genomeTypes";
-import type { AxisScores } from "./genomeTypes";
+import type { DNAResult, AxisResult } from "./genomeTypes";
 import { supabase } from "./supabaseClient";
 import { track } from "./lib/analytics";
 
 const MERCH_URL = "";
 
-const axisLabels: { key: keyof AxisScores; name: string; poleA: string; codeA: string; poleB: string; codeB: string }[] = [
-  { key: "vision", name: "Vision Style", poleA: "Expansive", codeA: "E", poleB: "Precise", codeB: "P" },
-  { key: "build", name: "Build Mode", poleA: "Intuitive", codeA: "I", poleB: "Systematic", codeB: "S" },
-  { key: "market", name: "Market Instinct", poleA: "Deepener", codeA: "D", poleB: "Disruptor", codeB: "X" },
-  { key: "growth", name: "Growth Engine", poleA: "Scale", codeA: "C", poleB: "Relationship", codeB: "R" },
-  { key: "tech", name: "Technology", poleA: "Native", codeA: "N", poleB: "Adaptive", codeB: "A" },
-];
-
-const axisDescriptions: Record<string, Record<string, string>> = {
-  vision: {
-    E: "You see opportunity everywhere. Your natural instinct is to expand \u2014 new directions, new markets, new possibilities. This expansive vision is a force multiplier when paired with the right execution strategy.",
-    P: "You are built on clarity and focus. You know exactly what you do, who you serve, and where you\u2019re headed. This precision is your competitive edge \u2014 you don\u2019t waste energy chasing what doesn\u2019t fit.",
-  },
-  build: {
-    I: "You build best in motion. You move on instinct, iterate fast, and find your direction through action rather than planning. This intuitive approach lets you capitalize on opportunities others are still analyzing.",
-    S: "You build on structure. Every move is planned, every system is intentional, and execution follows a framework. This systematic approach creates operational excellence that compounds over time.",
-  },
-  market: {
-    D: "You go deeper than anyone else in your market. You find the underserved layers, the unmet needs, the customers nobody else is truly reaching. This depth creates loyalty and expertise that surface-level competitors cannot replicate.",
-    X: "You see broken models and build replacements. You don\u2019t compete within existing frameworks \u2014 you create new ones. This disruptive instinct positions you to capture markets that don\u2019t yet know they need what you\u2019re building.",
-  },
-  growth: {
-    C: "You are engineered to scale. You build systems, infrastructure, and automation that grow without requiring your constant involvement. This scale-driven engine means you compound in value, not in complexity.",
-    R: "You grow through people. Every client, partner, and advocate is chosen deliberately, and growth comes from trust earned one relationship at a time. This creates a moat no competitor can buy or replicate.",
-  },
-  tech: {
-    N: "Technology is embedded in how you think, create, and operate. It\u2019s not a tool you reach for \u2014 it\u2019s the environment you build in. This native fluency gives you a permanent speed and capability advantage.",
-    A: "You adopt technology with discipline and intention. You don\u2019t chase tools \u2014 you integrate them when they\u2019ve earned their place. This adaptive approach means every technology investment is fully leveraged.",
-  },
-};
-
-function getAxisResult(axis: keyof AxisScores, scores: AxisScores) {
-  const meta = axisLabels.find((a) => a.key === axis)!;
-  const axisScore = scores[axis];
-  const values = Object.values(axisScore) as number[];
-  const keys = Object.keys(axisScore) as string[];
-  const dominantIndex = values[0] >= values[1] ? 0 : 1;
-  const dominantCode = keys[dominantIndex];
-  const dominantLabel = dominantIndex === 0 ? meta.poleA : meta.poleB;
-  const description = axisDescriptions[axis]?.[dominantCode] || "";
-  return { name: meta.name, dominantCode, dominantLabel, description };
-}
-
 interface ResultPageProps {
-  demoData?: { result: DNAResult; scores: AxisScores; firstName: string; email?: string; genomeRowId?: string };
+  demoData?: { result: DNAResult; axisResults: AxisResult[]; firstName: string; email?: string; genomeRowId?: string };
 }
 
 export default function ResultPage({ demoData }: ResultPageProps = {}) {
@@ -60,7 +16,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
   const navigate = useNavigate();
   const routerState = location.state as {
     result: DNAResult;
-    scores: AxisScores;
+    axisResults: AxisResult[];
     firstName: string;
     email?: string;
     genomeRowId?: string;
@@ -78,7 +34,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
 
   if (!state) return null;
 
-  const { result, scores, firstName } = state;
+  const { result, axisResults, firstName } = state;
   const [cuffEmail, setCuffEmail] = useState("");
   const [cuffSubmitted, setCuffSubmitted] = useState(false);
   const [cuffError, setCuffError] = useState("");
@@ -140,24 +96,21 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
             Your 5-Axis DNA Breakdown
           </h3>
           <div className="flex flex-col gap-5">
-            {axisLabels.map((axis) => {
-              const axisResult = getAxisResult(axis.key, scores);
-              return (
-                <div key={axis.key} className="bg-white border border-[#3B2A22]/10 rounded-xl p-6 sm:p-8">
-                  <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-['DM_Sans'] font-medium text-[#3B2A22] text-sm tracking-wide uppercase">
-                      {axisResult.name}
-                    </h4>
-                    <span className="font-['DM_Sans'] font-bold text-[#C1603A] text-sm">
-                      {axisResult.dominantLabel} ({axisResult.dominantCode})
-                    </span>
-                  </div>
-                  <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed">
-                    {axisResult.description}
-                  </p>
+            {axisResults.map((axisResult, i) => (
+              <div key={i} className="bg-white border border-[#3B2A22]/10 rounded-xl p-6 sm:p-8">
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="font-['DM_Sans'] font-medium text-[#3B2A22] text-sm tracking-wide uppercase">
+                    {axisResult.name}
+                  </h4>
+                  <span className="font-['DM_Sans'] font-bold text-[#C1603A] text-sm">
+                    {axisResult.dominantLabel} ({axisResult.dominantCode})
+                  </span>
                 </div>
-              );
-            })}
+                <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed">
+                  {axisResult.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -248,7 +201,7 @@ export default function ResultPage({ demoData }: ResultPageProps = {}) {
             Welcome to the Club.
           </h3>
           <p className="font-['DM_Sans'] text-[#3B2A22]/80 text-base leading-relaxed text-center">
-            You just found out how you're wired to build. That makes you a FoundHer — and it makes you a member. The FoundHers Club is free, and you're already in. Letter from the Build, events, and the women building alongside you.
+            You just found out how you're wired to build. That makes you a FoundHer — and it makes you a member. The FoundHers Club is free, and you're already in. Right now, that means occasional letters from the build, and early access to what's coming next. Find us on Facebook — <a href="https://www.facebook.com/profile.php?id=61593253061155" target="_blank" rel="noopener noreferrer" className="text-[#C1603A] underline hover:no-underline">FoundHers Club</a> — and be one of the first ones there.
           </p>
         </div>
       </section>

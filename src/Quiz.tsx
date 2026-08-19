@@ -1,9 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { quizQuestions } from "./quizData";
-import type { ScoreEntry } from "./quizData";
-import { calculateScores, getDNAResult, getRawCode, getDNACode } from "./genomeTypes";
-import type { AxisScores } from "./genomeTypes";
 import { supabase } from "./supabaseClient";
 import { track } from "./lib/analytics";
 
@@ -41,10 +38,11 @@ export default function Quiz() {
   const [showIntro, setShowIntro] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
-  const [answers, setAnswers] = useState<(ScoreEntry[] | null)[]>(
+  const [answers, setAnswers] = useState<({ questionId: number; optionLabel: string } | null)[]>(
     () => new Array(randomizedQuestions.length).fill(null)
   );
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const trackedQuestions = useRef<Set<number>>(new Set());
 
   const question = randomizedQuestions[currentIndex];
@@ -60,7 +58,10 @@ export default function Quiz() {
     if (selectedOption === null) return;
 
     const newAnswers = [...answers];
-    newAnswers[currentIndex] = question.options[selectedOption].scores;
+    newAnswers[currentIndex] = {
+      questionId: question.id,
+      optionLabel: question.options[selectedOption].label,
+    };
     setAnswers(newAnswers);
 
     if (!trackedQuestions.current.has(question.id)) {
@@ -77,54 +78,51 @@ export default function Quiz() {
       // Restore previous answer selection for next question, or reset
       const nextAnswer = newAnswers[currentIndex + 1];
       if (nextAnswer) {
-        // Find which option was previously selected
         const nextQuestion = randomizedQuestions[currentIndex + 1];
         const prevIndex = nextQuestion.options.findIndex(
-          (opt) => JSON.stringify(opt.scores) === JSON.stringify(nextAnswer)
+          (opt) => opt.label === nextAnswer.optionLabel
         );
         setSelectedOption(prevIndex >= 0 ? prevIndex : null);
       } else {
         setSelectedOption(null);
       }
     } else {
-      // Quiz complete — calculate and save results
+      // Quiz complete — send answers to server for scoring
       setSubmitting(true);
-      const finalAnswers = newAnswers as ScoreEntry[][];
-      const scores: AxisScores = calculateScores(finalAnswers);
-      const result = getDNAResult(scores);
-      const rawCode = getRawCode(scores);
-      const dnaCode = getDNACode(scores);
+      setSubmitError(false);
 
-      // Save to Supabase
-      const genomeRowId = crypto.randomUUID();
+      const finalAnswers = newAnswers.filter(
+        (a): a is { questionId: number; optionLabel: string } => a !== null
+      );
+
       try {
-        if (supabase) {
-          const { error } = await supabase.from("genome_results").insert({
-            id: genomeRowId,
-            name: firstName,
-            email,
-            genome_code: dnaCode,
-            genome_name: result.name,
-          });
-          if (error) throw error;
+        if (!supabase) throw new Error("Client not configured");
+
+        const { data, error } = await supabase.functions.invoke("score-quiz", {
+          body: { firstName, email, answers: finalAnswers },
+        });
+
+        if (error || !data?.result) {
+          throw new Error("Scoring failed");
         }
+
+        track("quiz_completed", { genome_name: data.result.name });
+
+        navigate("/result", {
+          state: {
+            result: data.result,
+            axisResults: data.axisResults,
+            firstName,
+            email,
+            genomeRowId: data.genomeRowId,
+          },
+          replace: true,
+        });
       } catch (err) {
-        console.error("Failed to save genome result:", err);
+        console.error("Failed to score quiz:", err);
+        setSubmitting(false);
+        setSubmitError(true);
       }
-
-      track("quiz_completed", { genome_name: result.name });
-
-      navigate("/result", {
-        state: {
-          result,
-          scores,
-          rawCode,
-          firstName,
-          email,
-          genomeRowId,
-        },
-        replace: true,
-      });
     }
   };
 
@@ -137,7 +135,7 @@ export default function Quiz() {
       if (prevAnswer) {
         const prevQuestion = randomizedQuestions[prevIndex];
         const optIdx = prevQuestion.options.findIndex(
-          (opt) => JSON.stringify(opt.scores) === JSON.stringify(prevAnswer)
+          (opt) => opt.label === prevAnswer.optionLabel
         );
         setSelectedOption(optIdx >= 0 ? optIdx : null);
       } else {
@@ -165,6 +163,54 @@ export default function Quiz() {
               className="px-10 py-3 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
             >
               Continue
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Loading state while scoring
+  if (submitting) {
+    return (
+      <div className="min-h-screen bg-[#FAF7F2] flex flex-col">
+        <div className="fixed top-6 left-6 z-50">
+          <img src="/images/FH_mark_official.png" alt="FoundHer AI" className="w-10" />
+        </div>
+        <div className="flex-1 flex items-center justify-center px-6">
+          <div className="max-w-[520px] text-center">
+            <h2 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-2xl sm:text-3xl leading-snug mb-6">
+              Analyzing your DNA…
+            </h2>
+            <p className="font-['DM_Sans'] text-[#3B2A22]/60 text-base leading-relaxed">
+              We're reading your answers across five dimensions to reveal your founder type.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state with retry
+  if (submitError) {
+    return (
+      <div className="min-h-screen bg-[#FAF7F2] flex flex-col">
+        <div className="fixed top-6 left-6 z-50">
+          <img src="/images/FH_mark_official.png" alt="FoundHer AI" className="w-10" />
+        </div>
+        <div className="flex-1 flex items-center justify-center px-6">
+          <div className="max-w-[520px] text-center">
+            <h2 className="font-['Libre_Baskerville'] font-bold text-[#3B2A22] text-2xl sm:text-3xl leading-snug mb-6">
+              Something went wrong.
+            </h2>
+            <p className="font-['DM_Sans'] text-[#3B2A22]/60 text-base leading-relaxed mb-10">
+              We couldn't process your results. Your answers are saved — try again.
+            </p>
+            <button
+              onClick={() => handleNext()}
+              className="px-10 py-3 bg-[#C1603A] text-[#FAF7F2] font-['DM_Sans'] font-medium text-base rounded cursor-pointer border-none hover:bg-[#a8512f] transition-colors"
+            >
+              Try Again
             </button>
           </div>
         </div>
@@ -276,18 +322,14 @@ export default function Quiz() {
             </button>
             <button
               onClick={handleNext}
-              disabled={selectedOption === null || submitting}
+              disabled={selectedOption === null}
               className={`font-['DM_Sans'] text-sm font-medium px-8 py-3 rounded border-none cursor-pointer transition-colors ${
                 selectedOption === null
                   ? "bg-[#3B2A22]/10 text-[#3B2A22]/30 cursor-default"
                   : "bg-[#C1603A] text-[#FAF7F2] hover:bg-[#a8512f]"
               }`}
             >
-              {submitting
-                ? "Calculating..."
-                : currentIndex === totalQuestions - 1
-                  ? "See My Results"
-                  : "Next"}
+              {currentIndex === totalQuestions - 1 ? "See My Results" : "Next"}
             </button>
           </div>
         </div>
